@@ -5,41 +5,41 @@ import { local } from '../classes/local';
 import { use } from '../objects/use';
 
 export const useApi = () => {
-   const instance = axios.create({});
-   
-   const call = async (method = 'GET', path = '', parameters = {}, verifyAccessToken = true) => {
-      allow.aPopulatedString(method).aPopulatedString(path).anObject(parameters).aBoolean(verifyAccessToken);
+   const call = async (method = 'GET', url = '', data = {}, verifyAccessToken = true) => {
+      allow.aPopulatedString(method).aPopulatedString(url).anObject(data).aBoolean(verifyAccessToken);
       if (verifyAccessToken) {
          await checkAccessToken(verifyAccessToken);
       }
+      const contentType = url.includes('/token') ? 'urlFormEncoded' : 'json';
       if (method === 'GET') {
-         const config = {
+         return axios({
+            headers: {
+               authorization: use.global.isLoggedIn ? 'Bearer ' + local.getItem('accessToken') : '',
+            },
+            method: 'get',
+            params: data,
+            url,
+         }).catch(error => console.error(error));
+      } else if (method === 'POST') {
+         return axios({
+            data: contentType === 'urlFormEncoded' ? qs.stringify(data) : data,
+            headers: {
+               authorization: use.global.isLoggedIn ? 'Bearer ' + local.getItem('accessToken') : '',
+               'content-type': contentType === 'urlFormEncoded' ? 'application/x-www-form-urlencoded' : 'application/json',
+            },
+            method: 'post',
+            url,
+         }).catch(error => console.error(error));
+      } else if (method === 'PUT') {
+         return axios({
+            data,
             headers: {
                authorization: 'Bearer ' + local.getItem('accessToken'),
+               'content-type': 'application/json',
             },
-            params: parameters,
-         };
-         return instance.get(path, config)
-            .catch(error => {
-               console.log(error);
-               return {offline: true};
-            });
-      } else if (method === 'POST') {
-         const config = {
-            headers: {
-               'content-type': 'application/x-www-form-urlencoded',
-            },
-         };
-         if (use.global.isLoggedIn)
-            config.headers.authorization = 'Bearer ' + local.getItem('accessToken');
-         return instance.post(path, qs.stringify(parameters), config)
-            .catch(() => ({offline: true}));
-      } else if (method === 'PUT') {
-         const config = {headers: {}};
-         if (use.global.isLoggedIn)
-            config.headers.authorization = 'Bearer ' + local.getItem('accessToken');
-         return instance.put(path + '?' + qs.stringify(parameters), qs.stringify(parameters), config)
-            .catch(() => ({offline: true}));
+            method: 'put',
+            url,
+         }).catch(error => console.error(error));
       }
    };
    

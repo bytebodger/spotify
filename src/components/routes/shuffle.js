@@ -72,6 +72,8 @@ export const Shuffle = () => {
          currentBatch.push(tracks[i].track.uri);
          if (i === 99 || (i < 99 && i === tracks.length - 1))
             use.playlistsApi.replaceTracks(selectedPlaylistId, currentBatch);
+         else if (i > 99 && ((i % 99) === 0  || i === tracks.length - 1))
+            use.playlistsApi.addTracks(selectedPlaylistId, currentBatch);
       }
    }
    
