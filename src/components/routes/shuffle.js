@@ -11,7 +11,16 @@ import { Row } from '../row';
 import { use } from '../../objects/use';
 
 export const Shuffle = () => {
+   const [lastShuffleResult, setLastShuffleResult] = useState([]);
    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
+   
+   const addTracks = (batches = []) => {
+      allow.aPopulatedArray(batches);
+      const batch = batches.shift();
+      use.playlistsApi.addTracks(selectedPlaylistId, batch);
+      if (batches.length)
+         setTimeout(() => addTracks(batches), use.global.consecutiveApiDelay);
+   }
    
    const comparePlaylists = (playlist1 = {}, playlist2 = {}) => {
       allow.aPopulatedObject(playlist1).aPopulatedObject(playlist2);
@@ -44,8 +53,24 @@ export const Shuffle = () => {
       return menuItems;
    };
    
+   const getTrackArtists = (artists = []) => {
+      allow.aPopulatedArray(artists);
+      const displayArtists = artists.map(artist => artist.name);
+      return displayArtists.join(' & ');
+   }
+   
+   const getTrackDescription = (track = {}, index = -1) => {
+      allow.aPopulatedObject(track).aNonNegativeInteger(index);
+      const { artists } = track.track;
+      return (
+         <div key={track.track.id + index}>
+            {index + 1}. {track.track.name} by {getTrackArtists(artists)}
+         </div>
+      );
+   }
+   
    const shuffle = () => {
-      let tracks =  cloneArray(use.playlistsApi.tracks);
+      let tracks = cloneArray(use.playlistsApi.tracks);
       for (let i = tracks.length - 1; i > 0; i--) {
          const j = Math.floor(Math.random() * i);
          const temp = tracks[i];
@@ -59,22 +84,29 @@ export const Shuffle = () => {
       allow.aPopulatedObject(event);
       const playlistId = event.target.value;
       setSelectedPlaylistId(playlistId);
-      if (playlistId !== '')
+      use.global.updatePlaylistTracksLoaded(false);
+      if (playlistId !== '') {
          use.playlistsApi.getTracks(playlistId);
+      }
    }
    
    const updateTracks = (tracks = []) => {
       allow.aPopulatedArray(tracks);
       let currentBatch = [];
-      for (let i = 0; i < tracks.length; i++) {
-         if ((i % 100) === 0)
+      let uriBatches = [];
+      let display = [];
+      tracks.forEach((track, index) => {
+         display.push(getTrackDescription(track, index));
+         if ((index % 100) === 0)
             currentBatch = [];
-         currentBatch.push(tracks[i].track.uri);
-         if (i === 99 || (i < 99 && i === tracks.length - 1))
+         currentBatch.push(track.track.uri);
+         if ((currentBatch.length === 100 && index === 99) || (index < 99 && index === tracks.length - 1))
             use.playlistsApi.replaceTracks(selectedPlaylistId, currentBatch);
-         else if (i > 99 && ((i % 99) === 0  || i === tracks.length - 1))
-            use.playlistsApi.addTracks(selectedPlaylistId, currentBatch);
-      }
+         else if (index > 99 && (currentBatch.length === 100 || index === tracks.length - 1))
+            uriBatches.push(cloneArray(currentBatch));
+      });
+      addTracks(uriBatches);
+      setLastShuffleResult(display);
    }
    
    return (
@@ -101,12 +133,17 @@ export const Shuffle = () => {
          <Row style={{marginTop: 20}}>
             <Column xs={12}>
                <Button
-                  disabled={selectedPlaylistId === ''}
+                  disabled={!use.global.playlistTracksLoaded || selectedPlaylistId === ''}
                   onClick={shuffle}
                   variant={'outlined'}
                >
                   Shuffle
                </Button>
+            </Column>
+         </Row>
+         <Row style={{marginTop: 20}}>
+            <Column xs={12}>
+               {lastShuffleResult}
             </Column>
          </Row>
       </>

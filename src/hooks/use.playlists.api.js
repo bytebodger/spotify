@@ -1,5 +1,6 @@
 import { allow } from '../classes/allow';
 import { local } from '../classes/local';
+import { use } from '../objects/use';
 import { useApi } from './use.api';
 import { useState } from 'react';
 
@@ -10,6 +11,7 @@ export const usePlaylistsApi = () => {
    
    const addTracks = (playlistId = '', uris = []) => {
       allow.aPopulatedString(playlistId).aPopulatedArray(uris);
+      //console.log('addTracks()', uris.length);
       api.call('POST', `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    
@@ -30,14 +32,16 @@ export const usePlaylistsApi = () => {
             local.setItem('playlists', aggregatePlaylists);
             setPlaylists(aggregatePlaylists);
             if (response.data.next)
-               getPlaylists(offset + limit, aggregatePlaylists);
+               setTimeout(() => getPlaylists(offset + limit, aggregatePlaylists), use.global.consecutiveApiDelay);
          });
    }
    
    const getTracks = (playlistId = '', offset = 0, allTracks = []) => {
       allow.aPopulatedString(playlistId).aNonNegativeInteger(offset).anArray(allTracks);
-      if (offset === 0)
+      if (offset === 0) {
          setTracks([]);
+         use.global.updatePlaylistTracksLoaded(false);
+      }
       const limit = 100;
       const parameters = {
          limit,
@@ -48,14 +52,15 @@ export const usePlaylistsApi = () => {
             const aggregateTracks = [...allTracks, ...response.data.items];
             setTracks(aggregateTracks);
             if (response.data.next)
-               getTracks(playlistId, offset + limit, aggregateTracks);
+               setTimeout(() => getTracks(playlistId, offset + limit, aggregateTracks), use.global.consecutiveApiDelay);
             else
-               return aggregateTracks;
+               use.global.updatePlaylistTracksLoaded(true);
          });
    }
    
    const replaceTracks = (playlistId = '', uris = []) => {
       allow.aPopulatedString(playlistId).aPopulatedArray(uris);
+      //console.log('replaceTracks()', uris.length);
       api.call('PUT', `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
 

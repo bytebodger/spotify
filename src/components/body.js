@@ -15,7 +15,11 @@ export const Body = () => {
    const renderComponent = (component = {}) => {
       allow.aPopulatedObject(component);
       return (
-         <div style={{position: 'absolute'}}>
+         <div style={{
+            padding: 20,
+            position: 'absolute',
+            width: 'calc(100% - 50px)',
+         }}>
             {component}
          </div>
       );
@@ -24,7 +28,12 @@ export const Body = () => {
    if (!use.global.isLoggedIn && location.pathname !== '/home')
       window.location.href = '/home';
    return (
-      <main>
+      <main style={{
+         height: '100%',
+         overflow: 'auto',
+         position: 'relative',
+         width: '100%',
+      }}>
          <TransitionGroup>
             <CSSTransition
                classNames={'fade'}

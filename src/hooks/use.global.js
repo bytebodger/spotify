@@ -12,6 +12,7 @@ export const useGlobal = () => {
    const [codeVerifier, setCodeVerifier] = useState(session.codeVerifier);
    const [error, setError] = useState('');
    const [isLoggedIn, setIsLoggedIn] = useState(session.isLoggedIn);
+   const [playlistTracksLoaded, setPlaylistTracksLoaded] = useState(false);
    const [refreshToken, setRefreshToken] = useState(session.refreshToken);
    
    const updateAccessToken = (token = '') => {
@@ -48,6 +49,11 @@ export const useGlobal = () => {
       setIsLoggedIn(loggedIn);
    }
    
+   const updatePlaylistTracksLoaded = (loaded = false) => {
+      allow.aBoolean(loaded);
+      setPlaylistTracksLoaded(loaded);
+   }
+   
    const updateRefreshToken = (token = '') => {
       allow.aString(token);
       local.setItem('refreshToken', token);
@@ -59,8 +65,10 @@ export const useGlobal = () => {
       accessTokenExpiresOn,
       code,
       codeVerifier,
+      consecutiveApiDelay: 250,
       error,
       isLoggedIn,
+      playlistTracksLoaded,
       refreshToken,
       state: local.getItem('state', createGuid()),
       updateAccessToken,
@@ -69,6 +77,7 @@ export const useGlobal = () => {
       updateCodeVerifier,
       updateError,
       updateIsLoggedIn,
+      updatePlaylistTracksLoaded,
       updateRefreshToken,
    };
 }

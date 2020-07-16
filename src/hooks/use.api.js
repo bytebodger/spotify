@@ -47,8 +47,13 @@ export const useApi = () => {
       allow.aBoolean(verifyAccessToken);
       if (!verifyAccessToken)
          return;
-      const fifteenMinutesAgo = Math.floor(Date.now() / 1000) - (60 * 15);
-      const remainingSeconds = use.global.accessTokenExpiresOn - fifteenMinutesAgo;
+      const now = Math.floor(Date.now() / 1000);
+      if (now > use.global.accessTokenExpiresOn) {
+         window.location.href = '/home';
+         return;
+      }
+      const thirtyMinutesAgo = Math.floor(Date.now() / 1000) - (60 * 30);
+      const remainingSeconds = use.global.accessTokenExpiresOn - thirtyMinutesAgo;
       if (remainingSeconds > 0)
          return;
       await use.tokenApi.refreshAccessToken();

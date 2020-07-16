@@ -38,9 +38,7 @@ export const FlexShell = () => {
                backgroundColor: 'white',
                height: '100%',
             }}>
-               <div style={{padding: 20}}>
-                  <Body/>
-               </div>
+               <Body/>
             </div>
          </div>
       </div>
