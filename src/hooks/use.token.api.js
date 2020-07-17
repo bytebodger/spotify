@@ -10,7 +10,7 @@ export const useTokenApi = () => {
    
    const getAccessToken = () => {
       const parameters = {
-         client_id: process.env.REACT_APP_CLIENT_ID,
+         client_id: use.global.clientId,
          grant_type: 'authorization_code',
          code: local.getItem('code'),
          redirect_uri: getRedirectUri() + location.pathname,
@@ -36,7 +36,7 @@ export const useTokenApi = () => {
    
    const refreshAccessToken = () => {
       const parameters = {
-         client_id: process.env.REACT_APP_CLIENT_ID,
+         client_id: use.global.clientId,
          grant_type: 'refresh_token',
          refresh_token: use.global.refreshToken,
       };

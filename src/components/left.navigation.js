@@ -65,7 +65,7 @@ export const LeftNavigation = () => {
       const newHash = crypto.createHash('sha256').update(codeVerifier).digest();
       const codeChallenge = base64url.encode(newHash);
       window.location.href = 'https://accounts.spotify.com/authorize'
-         + `?client_id=${process.env.REACT_APP_CLIENT_ID}`
+         + `?client_id=${use.global.clientId}`
          + `&code_challenge=${codeChallenge}`
          + '&code_challenge_method=S256'
          + '&response_type=code'
