@@ -53,6 +53,11 @@ export const Shuffle = () => {
       return menuItems;
    };
    
+   const getPlaylistName = () => {
+      const playlist = use.playlistsApi.playlists.find(playlist => playlist.id === selectedPlaylistId);
+      return playlist ? playlist.name : '';
+   }
+   
    const getTrackArtists = (artists = []) => {
       allow.aPopulatedArray(artists);
       const displayArtists = artists.map(artist => artist.name);
@@ -150,7 +155,20 @@ export const Shuffle = () => {
          </Row>
          <Row style={{marginTop: 20}}>
             <Column xs={12}>
-               {lastShuffleResult}
+               <div style={{display: lastShuffleResult.length ? 'block' : 'none'}}>
+                  All the tracks in your <b>{getPlaylistName()}</b> playlist have been shuffled into the order shown below.  If you view the <b>{getPlaylistName()}</b> playlist in your Spotify player, the tracks should be
+                  displayed in this same order.  (Be sure to remove any of the column-sorts from the playlist.  Playlists can be sorted by Title, Artist, Album, Added On, or Duration.  If any of these sorts are in place,
+                  you will not see the order listed below.)  With the playlist now shuffled, you can simply play the first track, and all subsequent tracks will play in the randomized order shown below.
+                  <br/><br/>
+                  [NOTE: Ensure that Spotify's native <code>shuffle</code> button is OFF.  This tool was created because Spotify's shuffle functionality sucks.  If you've shuffled your playlist with this tool, and then you
+                  start playing the tracks with Spotify's <code>shuffle</code> feature enabled, it defeats the whole purpose of this tool.]
+               </div>
+               <div style={{
+                  fontSize: '0.8em',
+                  marginTop: 20,
+               }}>
+                  {lastShuffleResult}
+               </div>
             </Column>
          </Row>
       </>
