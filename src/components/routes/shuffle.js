@@ -18,7 +18,7 @@ export const Shuffle = () => {
       allow.aPopulatedArray(batches);
       const batch = batches.shift();
       use.playlistsApi.addTracks(selectedPlaylistId, batch);
-      if (batches.length)
+      if (batches.length > 0)
          setTimeout(() => addTracks(batches), use.global.consecutiveApiDelay);
    }
    
@@ -38,7 +38,7 @@ export const Shuffle = () => {
          const { tracks } = playlist;
          return !playlist.name.toLowerCase().includes('shazam')
             && !playlist.name.toLowerCase().includes('rejected')
-            && tracks.total > 1
+            && tracks.total > 1;
       });
       filteredPlaylists.sort(comparePlaylists);
       filteredPlaylists.forEach(playlist => menuItems.push(
@@ -69,6 +69,16 @@ export const Shuffle = () => {
       );
    }
    
+   const rebuildPlaylist = (batches = []) => {
+      allow.aPopulatedArray(batches);
+      const firstBatch = batches.shift();
+      use.playlistsApi.replaceTracks(selectedPlaylistId, firstBatch)
+         .then(() => {
+            if (batches.length > 0)
+               setTimeout(() => addTracks(batches), use.global.consecutiveApiDelay);
+         });
+   }
+   
    const shuffle = () => {
       let tracks = cloneArray(use.playlistsApi.tracks);
       for (let i = tracks.length - 1; i > 0; i--) {
@@ -85,9 +95,8 @@ export const Shuffle = () => {
       const playlistId = event.target.value;
       setSelectedPlaylistId(playlistId);
       use.global.updatePlaylistTracksLoaded(false);
-      if (playlistId !== '') {
+      if (playlistId !== '')
          use.playlistsApi.getTracks(playlistId);
-      }
    }
    
    const updateTracks = (tracks = []) => {
@@ -97,15 +106,13 @@ export const Shuffle = () => {
       let display = [];
       tracks.forEach((track, index) => {
          display.push(getTrackDescription(track, index));
-         if ((index % 100) === 0)
-            currentBatch = [];
          currentBatch.push(track.track.uri);
-         if ((currentBatch.length === 100 && index === 99) || (index < 99 && index === tracks.length - 1))
-            use.playlistsApi.replaceTracks(selectedPlaylistId, currentBatch);
-         else if (index > 99 && (currentBatch.length === 100 || index === tracks.length - 1))
+         if (index > 0 && ((index % 99) === 0 || index === tracks.length - 1)) {
             uriBatches.push(cloneArray(currentBatch));
+            currentBatch = [];
+         }
       });
-      addTracks(uriBatches);
+      rebuildPlaylist(uriBatches);
       setLastShuffleResult(display);
    }
    
