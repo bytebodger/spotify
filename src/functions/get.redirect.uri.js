@@ -6,7 +6,7 @@ export const getRedirectUri = () => {
       case 'localhost':
          return 'http://localhost:3000';
       case 'production':
-         return 'https://writing.voyage/spotify/';
+         return 'https://spotifytoolz.com';
       default:
          return 'http://localhost:3000';
    }
