@@ -112,6 +112,7 @@ export const Shuffle = () => {
             currentBatch = [];
          }
       });
+      
       rebuildPlaylist(uriBatches);
       setLastShuffleResult(display);
    }
