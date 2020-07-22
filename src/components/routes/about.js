@@ -9,7 +9,6 @@ export const About = () => {
             Spotify Toolz is an independent project by me - Adam Nathaniel Davis.  I (obviously) have no rights whatsoever to the <i>Spotify</i> name, brand, copyrights, or trademarks.  The site is only named as such because all of
             these tools are solely designed to work with Spotify and integrate specifically with Spotify's public API.
          </p>
-         
          <p>
             I am the sole contributor on the project.  However, this is open source and if you'd like to see how this app is built, or if, perhaps, you'd like to contribute features or bug fixes, you're welcome to do so.  This app
             is written entirely in React using Hooks, functional components, and no third-party state-management library.  It also leverages standard tools such as <code>React Router</code>, <code>Material UI</code>, <code>Axios</code>,
