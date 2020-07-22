@@ -7,6 +7,7 @@ import { allow } from '../classes/allow';
 import { Error } from './routes/error';
 import { FindDuplicates } from './routes/find.duplicates';
 import { Home } from './routes/home';
+import { Recommend } from './routes/recommend';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { Shuffle } from './routes/shuffle';
 import { use } from '../objects/use';
@@ -64,6 +65,10 @@ export const Body = () => {
                   <Route
                      path={'/home'}
                      render={() => renderComponent(<Home/>)}
+                  />
+                  <Route
+                     path={'/recommend'}
+                     render={() => renderComponent(<Recommend/>)}
                   />
                   <Route
                      path={'/shuffle'}

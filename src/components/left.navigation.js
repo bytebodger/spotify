@@ -40,7 +40,18 @@ export const LeftNavigation = () => {
                   cursor: location.pathname === '/find-duplicates' ? 'default' : 'pointer',
                }}
             >
-               Find Duplicates
+               Duplicates
+            </div>
+            <div
+               onClick={location.pathname === '/recommend' ? () => {} : () => history.push('/recommend')}
+               style={{
+                  ...buttonStyle,
+                  backgroundColor: location.pathname === '/recommend' ? '#FB7153' : 'white',
+                  color: location.pathname === '/recommend' ? 'white' : '#444444',
+                  cursor: location.pathname === '/recommend' ? 'default' : 'pointer',
+               }}
+            >
+               Recommend
             </div>
             <div
                onClick={location.pathname === '/shuffle' ? () => {} : () => history.push('/shuffle')}
