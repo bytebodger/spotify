@@ -1,8 +1,6 @@
-import base64url from 'base64url';
-import crypto from 'crypto';
 import React from 'react';
-import { createGuid } from '../functions/create.guid';
-import { getRedirectUri } from '../functions/get.redirect.uri';
+import { local } from '../classes/local';
+import { goToSpotifyAuthorization } from '../functions/go.to.spotify.authorization';
 import { use } from '../objects/use';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -16,28 +14,46 @@ export const LeftNavigation = () => {
       marginBottom: 2,
       padding: 10,
    };
-   const scopes = [
-      'playlist-modify-public',
-      'playlist-modify-private',
-      'user-modify-playback-state',
-      'user-read-playback-state',
-   ];
    
    const getLoggedInLinks = () => {
       if (!use.global.isLoggedIn)
          return null;
       return (
-         <div
-            onClick={location.pathname === '/shuffle' ? () => {} : () => history.push('/shuffle')}
-            style={{
-               ...buttonStyle,
-               backgroundColor: location.pathname === '/shuffle' ? '#FB7153' : 'white',
-               color: location.pathname === '/shuffle' ? 'white' : '#444444',
-               cursor: location.pathname === '/shuffle' ? 'default' : 'pointer',
-            }}
-         >
-            Shuffle
-         </div>
+         <>
+            <div
+               onClick={logOut}
+               style={{
+                  ...buttonStyle,
+                  backgroundColor: 'white',
+                  color: '#444444',
+                  cursor: 'pointer',
+               }}
+            >
+               Log Out
+            </div>
+            <div
+               onClick={location.pathname === '/find-duplicates' ? () => {} : () => history.push('/find-duplicates')}
+               style={{
+                  ...buttonStyle,
+                  backgroundColor: location.pathname === '/find-duplicates' ? '#FB7153' : 'white',
+                  color: location.pathname === '/find-duplicates' ? 'white' : '#444444',
+                  cursor: location.pathname === '/find-duplicates' ? 'default' : 'pointer',
+               }}
+            >
+               Find Duplicates
+            </div>
+            <div
+               onClick={location.pathname === '/shuffle' ? () => {} : () => history.push('/shuffle')}
+               style={{
+                  ...buttonStyle,
+                  backgroundColor: location.pathname === '/shuffle' ? '#FB7153' : 'white',
+                  color: location.pathname === '/shuffle' ? 'white' : '#444444',
+                  cursor: location.pathname === '/shuffle' ? 'default' : 'pointer',
+               }}
+            >
+               Shuffle
+            </div>
+         </>
       );
    }
    
@@ -59,20 +75,9 @@ export const LeftNavigation = () => {
       );
    }
    
-   const goToSpotifyAuthorization = () => {
-      const codeVerifier = createGuid(43);
-      use.global.updateCodeVerifier(codeVerifier);
-      const newHash = crypto.createHash('sha256').update(codeVerifier).digest();
-      const codeChallenge = base64url.encode(newHash);
-      window.location.href = 'https://accounts.spotify.com/authorize'
-         + `?client_id=${use.global.clientId}`
-         + `&code_challenge=${codeChallenge}`
-         + '&code_challenge_method=S256'
-         + '&response_type=code'
-         + `&redirect_uri=${encodeURIComponent(getRedirectUri() + '/home')}`
-         + `&scope=${scopes.join(' ')}`
-         + `&state=${use.global.state}`
-      ;
+   const logOut = () => {
+      local.clear();
+      window.location.href = '/home';
    }
    
    return (

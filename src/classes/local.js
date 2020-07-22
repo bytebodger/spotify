@@ -1,20 +1,23 @@
 import { allow } from './allow';
 import { temp } from '../objects/temp';
 
-export class local {
-   /*
-      a wrapper for localStorage() that will store every key value in a serialized JSON string
-      this allows localStorage to hold string, booleans, numbers, nulls, objects, and arrays
-      if localStorage() is not available, it will use a standard object for storage
-    */
-   static clear = () => {
+/*
+   a wrapper for localStorage() that will store every key value in a serialized JSON string
+   this allows localStorage to hold string, booleans, numbers, nulls, objects, and arrays
+   if localStorage() is not available, it will use a standard object for storage
+ */
+class Local {
+   constructor() {
+      this.temp = temp;
+   }
+
+   clear = () => {
       if (this.localStorageIsSupported())
          localStorage.clear();
-      // noinspection JSUndeclaredVariable
-      temp = {};
+      this.temp = {};
    };
    
-   static getItem = (itemName = '', defaultValue = '__noDefaultValueSupplied__') => {
+   getItem = (itemName = '', defaultValue = '__noDefaultValueSupplied__') => {
       allow.aPopulatedString(itemName);
       if (this.localStorageIsSupported()) {
          const valueObject = JSON.parse(localStorage.getItem(itemName));
@@ -30,17 +33,17 @@ export class local {
          }
          return valueObject.value;
       } else {
-         if (temp.hasOwnProperty(itemName))
-            return temp[itemName];
+         if (this.temp.hasOwnProperty(itemName))
+            return this.temp[itemName];
          else if (defaultValue !== '__noDefaultValueSupplied__') {
-            temp[itemName] = defaultValue;
+            this.temp[itemName] = defaultValue;
             return defaultValue;
          }
          return null;
       }
    };
    
-   static localStorageIsSupported = () => {
+   localStorageIsSupported = () => {
       try {
          const testKey = '__some_random_key_you_are_not_going_to_use__';
          localStorage.setItem(testKey, testKey);
@@ -51,24 +54,26 @@ export class local {
       }
    };
    
-   static removeItem = (itemName = '') => {
+   removeItem = (itemName = '') => {
       allow.aPopulatedString(itemName);
       if (this.localStorageIsSupported())
          localStorage.removeItem(itemName);
-      else if (temp.hasOwnProperty(itemName))
-         delete temp[itemName];
+      else if (this.temp.hasOwnProperty(itemName))
+         delete this.temp[itemName];
       return true;
    };
    
-   static setItem = (itemName, itemValue = null) => {
+   setItem = (itemName, itemValue = null) => {
       allow.aPopulatedString(itemName);
       if (this.localStorageIsSupported()) {
          const valueToBeSerialized = {value : itemValue};
          const serializedValue = JSON.stringify(valueToBeSerialized);
          localStorage.setItem(itemName, serializedValue);
       } else {
-         temp[itemName] = itemValue;
+         this.temp[itemName] = itemValue;
       }
       return itemValue;
    };
 }
+
+export const local = new Local();

@@ -1,12 +1,10 @@
 import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import React, { useState } from 'react';
-import Select from '@material-ui/core/Select';
 import { allow } from '../../classes/allow';
 import { cloneArray } from '../../functions/clone.array';
 import { Column } from '../column';
+import { getTrackArtistNames } from '../../functions/get.track.artists';
+import { PlaylistMenu } from '../playlist.menu';
 import { Row } from '../row';
 import { use } from '../../objects/use';
 
@@ -22,54 +20,16 @@ export const Shuffle = () => {
          setTimeout(() => addTracks(batches), use.global.consecutiveApiDelay);
    }
    
-   const comparePlaylists = (playlist1 = {}, playlist2 = {}) => {
-      allow.aPopulatedObject(playlist1).aPopulatedObject(playlist2);
-      if (playlist1.name.toLowerCase() < playlist2.name.toLowerCase())
-         return -1;
-      else if (playlist1.name.toLowerCase() > playlist2.name.toLowerCase())
-         return 1;
-      else
-         return 0;
-   };
-   
-   const getMenuItems = () => {
-      let menuItems = [];
-      const filteredPlaylists = use.playlistsApi.playlists.filter(playlist => {
-         const { tracks } = playlist;
-         return !playlist.name.toLowerCase().includes('shazam')
-            && !playlist.name.toLowerCase().includes('rejected')
-            && tracks.total > 1;
-      });
-      filteredPlaylists.sort(comparePlaylists);
-      filteredPlaylists.forEach(playlist => menuItems.push(
-         <MenuItem
-            key={playlist.id}
-            selected={playlist.id === selectedPlaylistId}
-            value={playlist.id}
-         >
-            {playlist.name}
-         </MenuItem>
-      ));
-      return menuItems;
-   };
-   
    const getPlaylistName = () => {
       const playlist = use.playlistsApi.playlists.find(playlist => playlist.id === selectedPlaylistId);
       return playlist ? playlist.name : '';
    }
    
-   const getTrackArtists = (artists = []) => {
-      allow.aPopulatedArray(artists);
-      const displayArtists = artists.map(artist => artist.name);
-      return displayArtists.join(' & ');
-   }
-   
    const getTrackDescription = (track = {}, index = -1) => {
       allow.aPopulatedObject(track).aNonNegativeInteger(index);
-      const { artists } = track.track;
       return (
          <div key={track.track.id + index}>
-            {index + 1}. {track.track.name} by {getTrackArtists(artists)}
+            {index + 1}. {track.track.name} by {getTrackArtistNames(track.track)}
          </div>
       );
    }
@@ -123,23 +83,14 @@ export const Shuffle = () => {
    
    return (
       <>
-         <h1 style={{marginTop: 0}}>Shuffle That Sucks Less</h1>
+         <h1 style={{marginTop: 0}}>Shuffle The Tracks In A Playlist</h1>
          <Row>
             <Column xs={12} sm={10} md={8} lg={6} xl={4}>
-               <FormControl
-                  style={{width: '100%'}}
-                  variant={'outlined'}
-               >
-                  <InputLabel>Playlist to be Shuffled</InputLabel>
-                  <Select
-                     label={'Playlist to be Shuffled'}
-                     onChange={updateSelectedPlaylist}
-                     value={selectedPlaylistId}
-                  >
-                     <MenuItem value={''}>&nbsp;</MenuItem>
-                     {getMenuItems()}
-                  </Select>
-               </FormControl>
+               <PlaylistMenu
+                  label={'Playlist to be Shuffled'}
+                  onChange={updateSelectedPlaylist}
+                  value={selectedPlaylistId}
+               />
             </Column>
          </Row>
          <Row style={{marginTop: 20}}>

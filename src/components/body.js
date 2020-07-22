@@ -4,6 +4,7 @@ import React  from 'react';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 import { allow } from '../classes/allow';
 import { use } from '../objects/use';
+import { FindDuplicates } from './routes/find.duplicates';
 import { Error } from './routes/error';
 import { Home } from './routes/home';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
@@ -47,6 +48,10 @@ export const Body = () => {
                   >
                      <Redirect to={'/home'}/>
                   </Route>
+                  <Route
+                     path={'/find-duplicates'}
+                     render={() => renderComponent(<FindDuplicates/>)}
+                  />
                   <Route
                      path={'/error'}
                      render={() => renderComponent(<Error/>)}
