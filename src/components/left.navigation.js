@@ -95,6 +95,17 @@ export const LeftNavigation = () => {
          </div>
          {getLoggedInLinks()}
          {getLoggedOutLinks()}
+         <div
+            onClick={location.pathname === '/about' ? () => {} : () => history.push('/about')}
+            style={{
+               ...buttonStyle,
+               backgroundColor: location.pathname === '/about' ? '#FB7153' : 'white',
+               color: location.pathname === '/about' ? 'white' : '#444444',
+               cursor: location.pathname === '/about' ? 'default' : 'pointer',
+            }}
+         >
+            About
+         </div>
       </>
    );
 }

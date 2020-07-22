@@ -2,13 +2,14 @@ import '../css/fade.css';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import React  from 'react';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
+import { About } from './routes/about';
 import { allow } from '../classes/allow';
-import { use } from '../objects/use';
-import { FindDuplicates } from './routes/find.duplicates';
 import { Error } from './routes/error';
+import { FindDuplicates } from './routes/find.duplicates';
 import { Home } from './routes/home';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { Shuffle } from './routes/shuffle';
+import { use } from '../objects/use';
 
 export const Body = () => {
    const location = useLocation();
@@ -26,7 +27,7 @@ export const Body = () => {
       );
    }
    
-   if (!use.global.isLoggedIn && location.pathname !== '/home')
+   if (!use.global.isLoggedIn && location.pathname !== '/home' && location.pathname !== '/about')
       window.location.href = '/home';
    return (
       <main style={{
@@ -49,12 +50,16 @@ export const Body = () => {
                      <Redirect to={'/home'}/>
                   </Route>
                   <Route
-                     path={'/find-duplicates'}
-                     render={() => renderComponent(<FindDuplicates/>)}
+                     path={'/about'}
+                     render={() => renderComponent(<About/>)}
                   />
                   <Route
                      path={'/error'}
                      render={() => renderComponent(<Error/>)}
+                  />
+                  <Route
+                     path={'/find-duplicates'}
+                     render={() => renderComponent(<FindDuplicates/>)}
                   />
                   <Route
                      path={'/home'}
