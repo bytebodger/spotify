@@ -56,7 +56,7 @@ export const useApi = () => {
       const remainingSeconds = use.global.accessTokenExpiresOn - thirtyMinutesAgo;
       if (remainingSeconds > 0)
          return;
-      await use.tokenApi.refreshAccessToken();
+      await use.tokenEndpoint.refreshAccessToken();
    }
    
    return {

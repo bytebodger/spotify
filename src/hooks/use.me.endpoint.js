@@ -2,7 +2,7 @@ import { local } from '../classes/local';
 import { useApi } from './use.api';
 import { useState } from 'react';
 
-export const useMeApi = () => {
+export const useMeEndpoint = () => {
    const [me, setMe] = useState(local.getItem('me', {}));
    const api = useApi();
    

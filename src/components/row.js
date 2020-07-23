@@ -2,7 +2,7 @@ import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
-export const Row = (props) => {
+export const Row = props => {
    return (
       <Grid
          container={true}

@@ -18,7 +18,7 @@ export const UI = () => {
          use.global.updateIsLoggedIn(true);
          use.global.updateCode(urlParameters.code);
          history.push(location.pathname);
-         use.tokenApi.getAccessToken();
+         use.tokenEndpoint.getAccessToken();
       }
    }, [history, location.pathname]);
 

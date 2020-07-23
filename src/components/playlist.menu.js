@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 import { allow } from '../classes/allow';
 import { use } from '../objects/use';
 
-export const PlaylistMenu = (props) => {
+export const PlaylistMenu = props => {
    const comparePlaylists = (playlist1 = {}, playlist2 = {}) => {
       allow.aPopulatedObject(playlist1).aPopulatedObject(playlist2);
       if (playlist1.name.toLowerCase() < playlist2.name.toLowerCase())
@@ -20,7 +20,7 @@ export const PlaylistMenu = (props) => {
    
    const getMenuItems = () => {
       let menuItems = [];
-      const filteredPlaylists = use.playlistsApi.playlists.filter(playlist => {
+      const filteredPlaylists = use.playlistsEndpoint.playlists.filter(playlist => {
          const { tracks } = playlist;
          return !playlist.name.toLowerCase().includes('shazam')
             && !playlist.name.toLowerCase().includes('rejected')

@@ -7,7 +7,7 @@ export const Header = () => {
    const getLoggedInAs = () => {
       if (!use.global.isLoggedIn)
          return 'Logged Out';
-      const { display_name } = use.meApi.me;
+      const { display_name } = use.meEndpoint.me;
       return `Logged in as: ${display_name}`;
    }
    

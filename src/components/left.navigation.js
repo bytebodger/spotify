@@ -32,12 +32,12 @@ export const LeftNavigation = () => {
                Log Out
             </div>
             <div
-               onClick={location.pathname === '/find-duplicates' ? () => {} : () => history.push('/find-duplicates')}
+               onClick={location.pathname === '/duplicates' ? () => {} : () => history.push('/duplicates')}
                style={{
                   ...buttonStyle,
-                  backgroundColor: location.pathname === '/find-duplicates' ? '#FB7153' : 'white',
-                  color: location.pathname === '/find-duplicates' ? 'white' : '#444444',
-                  cursor: location.pathname === '/find-duplicates' ? 'default' : 'pointer',
+                  backgroundColor: location.pathname === '/duplicates' ? '#FB7153' : 'white',
+                  color: location.pathname === '/duplicates' ? 'white' : '#444444',
+                  cursor: location.pathname === '/duplicates' ? 'default' : 'pointer',
                }}
             >
                Duplicates

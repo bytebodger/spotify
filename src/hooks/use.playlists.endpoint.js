@@ -4,8 +4,9 @@ import { use } from '../objects/use';
 import { useApi } from './use.api';
 import { useState } from 'react';
 
-export const usePlaylistsApi = () => {
+export const usePlaylistsEndpoint = () => {
    const [playlists, setPlaylists] = useState(local.getItem('playlists', []));
+   const [recommendationPlaylistExists, setRecommendationPlaylistExists] = useState(false);
    const [tracks, setTracks] = useState([]);
    const api = useApi();
    
@@ -30,8 +31,15 @@ export const usePlaylistsApi = () => {
             const aggregatePlaylists = [...allPlaylists, ...response.data.items];
             local.setItem('playlists', aggregatePlaylists);
             setPlaylists(aggregatePlaylists);
+            console.log(aggregatePlaylists);
             if (response.data.next)
                setTimeout(() => getPlaylists(offset + limit, aggregatePlaylists), use.global.consecutiveApiDelay);
+            else {
+               aggregatePlaylists.forEach(playlist => {
+                  if (playlist.name === 'Spotify Toolz Recommendations')
+                     setRecommendationPlaylistExists(true);
+               });
+            }
          });
    }
    
@@ -67,6 +75,7 @@ export const usePlaylistsApi = () => {
       getPlaylists,
       getTracks,
       playlists: playlists || [],
+      recommendationPlaylistExists,
       replaceTracks,
       tracks,
    };
