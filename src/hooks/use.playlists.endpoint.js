@@ -1,5 +1,6 @@
 import { allow } from '../classes/allow';
 import { local } from '../classes/local';
+import { the } from '../objects/the';
 import { use } from '../objects/use';
 import { useApi } from './use.api';
 import { useState } from 'react';
@@ -18,7 +19,7 @@ export const usePlaylistsEndpoint = () => {
    
    const addTracks = (playlistId = '', uris = []) => {
       allow.aPopulatedString(playlistId).aPopulatedArray(uris);
-      return api.call('post', `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
+      return api.call(the.method.post, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    
    const getPlaylists = (offset = 0, allPlaylists = []) => {
@@ -32,7 +33,7 @@ export const usePlaylistsEndpoint = () => {
          limit,
          offset,
       };
-      api.call('get', 'https://api.spotify.com/v1/me/playlists', parameters)
+      api.call(the.method.get, 'https://api.spotify.com/v1/me/playlists', parameters)
          .then(response => {
             const aggregatePlaylists = [...allPlaylists, ...response.data.items];
             local.setItem('playlists', aggregatePlaylists);
@@ -58,7 +59,7 @@ export const usePlaylistsEndpoint = () => {
          limit,
          offset,
       };
-      api.call('get', `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, parameters)
+      api.call(the.method.get, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, parameters)
          .then(response => {
             const aggregateTracks = [...allTracks, ...response.data.items];
             setTracks(aggregateTracks);
@@ -71,7 +72,7 @@ export const usePlaylistsEndpoint = () => {
    
    const replaceTracks = (playlistId = '', uris = []) => {
       allow.aPopulatedString(playlistId).aPopulatedArray(uris);
-      return api.call('put', `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
+      return api.call(the.method.put, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    
    const updateRecommendationPlaylistExists = (exists = false) => {

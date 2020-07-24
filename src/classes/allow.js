@@ -17,26 +17,6 @@ class Allow {
       return this;
    };
    
-   aGuid = (value = '') => {
-      this.aPopulatedString(value);
-      if (value.length !== 32 && this.throwOnError) {
-         console.error(value);
-         throw new Error('is not a GUID');
-      }
-      for (let i = 0; i < 32; i++) {
-         const characterCode = value.charCodeAt(i);
-         if (
-            !this.throwOnError
-            || (characterCode >= 65 && characterCode <= 90)
-            || (i !== 0 && characterCode >= 48 && characterCode <= 57)
-         )
-            continue;
-         console.error(value);
-         throw new Error('is not a GUID');
-      }
-      return this;
-   };
-   
    anArray = (value = []) => {
       if (!Array.isArray(value) && this.throwOnError) {
          console.error(value);
@@ -119,9 +99,10 @@ class Allow {
       return this;
    };
    
-   oneOf = (value, allowedValues = []) => {
-      this.aPopulatedArray(allowedValues);
-      if (!allowedValues.some(allowedValue => allowedValue === value)) {
+   oneOf = (value, allowedValues = {}) => {
+      this.aPopulatedObject(allowedValues);
+      const entries = Object.entries(allowedValues);
+      if (!entries.some(entry => entry[1] === value)) {
          console.error(value);
          throw new Error('is not an allowed value');
       }

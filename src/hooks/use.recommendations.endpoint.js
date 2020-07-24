@@ -1,4 +1,5 @@
 import { allow } from '../classes/allow';
+import { the } from '../objects/the';
 import { useApi } from './use.api';
 
 export const useRecommendationsEndpoint = () => {
@@ -9,7 +10,7 @@ export const useRecommendationsEndpoint = () => {
       const parameters = {
          seed_tracks: seedTrackIds.join(','),
       };
-      return api.call('get', 'https://api.spotify.com/v1/recommendations', parameters);
+      return api.call(the.method.get, 'https://api.spotify.com/v1/recommendations', parameters);
    }
    
    return {

@@ -73,7 +73,7 @@ export const Shuffle = () => {
       rebuildPlaylist(uriBatches);
       setLastShuffleResult(display);
    }
-   
+
    return (
       <>
          <LoadingTracksModal open={loadingModalIsOpen && !use.global.playlistTracksLoaded}/>

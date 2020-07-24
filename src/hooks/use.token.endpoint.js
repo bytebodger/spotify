@@ -1,5 +1,6 @@
 import { getRedirectUri } from '../functions/get.redirect.uri';
 import { local } from '../classes/local';
+import { the } from '../objects/the';
 import { use } from '../objects/use';
 import { useApi } from './use.api';
 import { useLocation } from 'react-router';
@@ -16,7 +17,7 @@ export const useTokenEndpoint = () => {
          redirect_uri: getRedirectUri() + location.pathname,
          code_verifier: local.getItem('codeVerifier'),
       };
-      return api.call('post', 'https://accounts.spotify.com/api/token', parameters, false)
+      return api.call(the.method.post, 'https://accounts.spotify.com/api/token', parameters, false)
          .then(response => {
             const {access_token = '', error = '', expires_in = 0, refresh_token = ''} = response.data;
             if (error) {
@@ -40,7 +41,7 @@ export const useTokenEndpoint = () => {
          grant_type: 'refresh_token',
          refresh_token: use.global.refreshToken,
       };
-      return api.call('post', 'https://accounts.spotify.com/api/token', parameters, false)
+      return api.call(the.method.post, 'https://accounts.spotify.com/api/token', parameters, false)
          .then(response => {
             const {access_token = '', expires_in = 0, refresh_token = ''} = response.data;
             if (access_token)
