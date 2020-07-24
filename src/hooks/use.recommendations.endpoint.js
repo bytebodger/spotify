@@ -9,7 +9,7 @@ export const useRecommendationsEndpoint = () => {
       const parameters = {
          seed_tracks: seedTrackIds.join(','),
       };
-      return api.call('GET', 'https://api.spotify.com/v1/recommendations', parameters);
+      return api.call('get', 'https://api.spotify.com/v1/recommendations', parameters);
    }
    
    return {

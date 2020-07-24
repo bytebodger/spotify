@@ -18,7 +18,7 @@ export const usePlaylistsEndpoint = () => {
    
    const addTracks = (playlistId = '', uris = []) => {
       allow.aPopulatedString(playlistId).aPopulatedArray(uris);
-      return api.call('POST', `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
+      return api.call('post', `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    
    const getPlaylists = (offset = 0, allPlaylists = []) => {
@@ -32,7 +32,7 @@ export const usePlaylistsEndpoint = () => {
          limit,
          offset,
       };
-      api.call('GET', 'https://api.spotify.com/v1/me/playlists', parameters)
+      api.call('get', 'https://api.spotify.com/v1/me/playlists', parameters)
          .then(response => {
             const aggregatePlaylists = [...allPlaylists, ...response.data.items];
             local.setItem('playlists', aggregatePlaylists);
@@ -58,7 +58,7 @@ export const usePlaylistsEndpoint = () => {
          limit,
          offset,
       };
-      api.call('GET', `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, parameters)
+      api.call('get', `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, parameters)
          .then(response => {
             const aggregateTracks = [...allTracks, ...response.data.items];
             setTracks(aggregateTracks);
@@ -71,7 +71,7 @@ export const usePlaylistsEndpoint = () => {
    
    const replaceTracks = (playlistId = '', uris = []) => {
       allow.aPopulatedString(playlistId).aPopulatedArray(uris);
-      return api.call('PUT', `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
+      return api.call('put', `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    
    const updateRecommendationPlaylistExists = (exists = false) => {

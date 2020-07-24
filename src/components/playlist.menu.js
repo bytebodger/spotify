@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
+import InpostLabel from '@material-ui/core/InpostLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import React from 'react';
 import Select from '@material-ui/core/Select';
@@ -45,7 +45,7 @@ export const PlaylistMenu = props => {
          style={{width: '100%'}}
          variant={'outlined'}
       >
-         <InputLabel>{props.label}</InputLabel>
+         <InpostLabel>{props.label}</InpostLabel>
          <Select
             label={props.label}
             onChange={props.onChange}

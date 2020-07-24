@@ -118,6 +118,15 @@ class Allow {
       }
       return this;
    };
+   
+   oneOf = (value, allowedValues = []) => {
+      this.aPopulatedArray(allowedValues);
+      if (!allowedValues.some(allowedValue => allowedValue === value)) {
+         console.error(value);
+         throw new Error('is not an allowed value');
+      }
+      return this;
+   }
 }
 
 export const allow = new Allow();

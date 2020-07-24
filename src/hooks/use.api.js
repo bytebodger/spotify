@@ -5,13 +5,13 @@ import { local } from '../classes/local';
 import { use } from '../objects/use';
 
 export const useApi = () => {
-   const call = async (method = 'GET', url = '', data = {}, verifyAccessToken = true) => {
+   const call = async (method = 'get', url = '', data = {}, verifyAccessToken = true) => {
       allow.aPopulatedString(method).aPopulatedString(url).anObject(data).aBoolean(verifyAccessToken);
       if (verifyAccessToken) {
          await checkAccessToken(verifyAccessToken);
       }
       const contentType = url.includes('/token') ? 'urlFormEncoded' : 'json';
-      if (method === 'GET') {
+      if (method === 'get') {
          return axios({
             headers: {
                authorization: use.global.isLoggedIn ? 'Bearer ' + local.getItem('accessToken') : '',
@@ -20,7 +20,7 @@ export const useApi = () => {
             params: data,
             url,
          }).catch(error => console.error(error));
-      } else if (method === 'POST') {
+      } else if (method === 'post') {
          return axios({
             data: contentType === 'urlFormEncoded' ? qs.stringify(data) : data,
             headers: {
@@ -30,14 +30,14 @@ export const useApi = () => {
             method: 'post',
             url,
          }).catch(error => console.error(error));
-      } else if (method === 'PUT') {
+      } else if (method === 'put') {
          return axios({
             data,
             headers: {
                authorization: 'Bearer ' + local.getItem('accessToken'),
                'content-type': 'application/json',
             },
-            method: 'put',
+            method: 'post',
             url,
          }).catch(error => console.error(error));
       }
