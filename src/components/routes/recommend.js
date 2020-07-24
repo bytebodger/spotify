@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { allow } from '../../classes/allow';
 import { local } from '../../classes/local';
 import { getTrackArtistNames } from '../../functions/get.track.artists';
+import { tracksAreLikelyDuplicates } from '../../functions/tracks.are.likely.duplicates';
 import { Column } from '../column';
 import { getRandomizedTracks } from '../../functions/get.randomized.tracks';
 import { LoadingTracksModal } from '../loading.tracks.modal';
@@ -34,16 +35,15 @@ export const Recommend = () => {
    const getRecommendations = (seedBatches = [], allRecommendations = []) => {
       allow.anArray(seedBatches).anArray(allRecommendations);
       const seedBatch = seedBatches.shift();
+      const tracksFromPlaylistsEndpoint = use.playlistsEndpoint.tracks.map(track => track.track);
       use.recommendationsEndpoint.getRecommendations(seedBatch)
          .then(response => {
             response.data.tracks.forEach(recommendedTrack => {
-               if (allRecommendations.length === 100)
-                  return;
-               const trackIsAlreadyInPlaylist = use.playlistsEndpoint.tracks.some(existingTrack => existingTrack.track.id === recommendedTrack.id);
-               if (trackIsAlreadyInPlaylist)
-                  return;
-               const trackIsAlreadyInRecommendations = allRecommendations.some(previouslyRecommendedTrack => previouslyRecommendedTrack.id === recommendedTrack.id);
-               if (trackIsAlreadyInRecommendations)
+               if (
+                  allRecommendations.length === 100
+                  || trackExistsInList(recommendedTrack, tracksFromPlaylistsEndpoint)
+                  || trackExistsInList(recommendedTrack, allRecommendations)
+               )
                   return;
                allRecommendations.push(recommendedTrack);
             });
@@ -54,6 +54,11 @@ export const Recommend = () => {
                checkRecommendationPlaylist(allRecommendations);
             }
          });
+   }
+   
+   const trackExistsInList = (track = {}, list = []) => {
+      allow.aPopulatedObject(track).anArray(list);
+      return list.some(item => item.id === track.id || tracksAreLikelyDuplicates(item, track));
    }
    
    const getRecommendationsDisplay = () => {
