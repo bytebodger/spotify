@@ -53,7 +53,7 @@ export const useApi = () => {
          return;
       }
       const remainingSeconds = use.global.accessTokenExpiresOn - now;
-      if (remainingSeconds > (60 * 15))
+      if (remainingSeconds > (60 * 30))
          return;
       await use.tokenEndpoint.refreshAccessToken();
    }
