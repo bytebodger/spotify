@@ -24,7 +24,7 @@ export const useApi = () => {
          return axios({
             data: contentType === 'urlFormEncoded' ? qs.stringify(data) : data,
             headers: {
-               authorization: use.global.isLoggedIn ? 'Bearer ' + local.getItem('accessToken') : '',
+               authorization: use.global.isLoggedIn && data.grant_type !== 'refresh_token' ? 'Bearer ' + local.getItem('accessToken') : '',
                'content-type': contentType === 'urlFormEncoded' ? 'application/x-www-form-urlencoded' : 'application/json',
             },
             method: 'post',
@@ -52,9 +52,8 @@ export const useApi = () => {
          window.location.href = '/home';
          return;
       }
-      const thirtyMinutesAgo = Math.floor(Date.now() / 1000) - (60 * 30);
-      const remainingSeconds = use.global.accessTokenExpiresOn - thirtyMinutesAgo;
-      if (remainingSeconds > 0)
+      const remainingSeconds = use.global.accessTokenExpiresOn - now;
+      if (remainingSeconds > (60 * 15))
          return;
       await use.tokenEndpoint.refreshAccessToken();
    }
