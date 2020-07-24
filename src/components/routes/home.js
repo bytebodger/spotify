@@ -36,6 +36,7 @@ export const Home = () => {
                   <li><b>Advanced Music Discovery:</b> Spotify's "Recommended Songs" feature has a disturbing tendency to keep regurgiting the same, tired recommendations that you've already rejected.  This tool
                   will provide a much richer set of recommended tracks.</li>
                </ol>
+               
             </Column>
          </Row>
          {getLoginButton()}
