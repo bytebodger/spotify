@@ -1,7 +1,6 @@
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
 import { allow } from '../../classes/allow';
-import { cloneArray } from '../../functions/clone.array';
 import { Column } from '../column';
 import { getRandomizedTracks } from '../../functions/get.randomized.tracks';
 import { getTrackArtistNames } from '../../functions/get.track.artists';
@@ -67,7 +66,7 @@ export const Shuffle = () => {
          display.push(getTrackDescription(track, index));
          currentBatch.push(track.track.uri);
          if (index > 0 && (((index + 1) % 100) === 0 || (index + 1) === tracks.length)) {
-            uriBatches.push(cloneArray(currentBatch));
+            uriBatches.push(currentBatch);
             currentBatch = [];
          }
       });
