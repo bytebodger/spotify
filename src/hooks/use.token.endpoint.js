@@ -4,7 +4,7 @@ import { use } from '../objects/use';
 import { useApi } from './use.api';
 import { useLocation } from 'react-router';
 
-export const useTokenApi = () => {
+export const useTokenEndpoint = () => {
    const api = useApi();
    const location = useLocation();
    
@@ -29,8 +29,8 @@ export const useTokenApi = () => {
                use.global.updateAccessTokenExpiresOn((Math.floor(Date.now() / 1000)) + expires_in);
             if (refresh_token)
                use.global.updateRefreshToken(refresh_token);
-            use.meApi.getMe();
-            use.playlistsApi.getPlaylists();
+            use.meEndpoint.getMe();
+            use.playlistsEndpoint.getPlaylists();
          });
    }
    

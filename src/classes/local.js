@@ -7,8 +7,9 @@ import { temp } from '../objects/temp';
    if localStorage() is not available, it will use a standard object for storage
  */
 class Local {
-   constructor() {
-      this.temp = temp;
+   constructor(tempObject = {}) {
+      allow.anObject(tempObject);
+      this.temp = tempObject;
    }
 
    clear = () => {
@@ -76,4 +77,4 @@ class Local {
    };
 }
 
-export const local = new Local();
+export const local = new Local(temp);

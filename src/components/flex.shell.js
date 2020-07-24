@@ -17,9 +17,9 @@ export const FlexShell = () => {
             style={{
                borderRadius: 10,
                flex: '0 0 200px',
-               marginBottom: 5,
-               marginLeft: 3,
-               marginTop: 3,
+               marginBottom: 20,
+               marginLeft: 70,
+               marginTop: 5,
             }}
          >
             <LeftNavigation/>
@@ -29,7 +29,7 @@ export const FlexShell = () => {
             style={{
                backgroundColor: '#aaaaaa',
                flex: '1 1',
-               padding: '3px 3px 10px 10px',
+               padding: '5px 50px 20px 10px',
             }}
          >
             <div style={{

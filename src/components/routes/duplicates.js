@@ -5,13 +5,15 @@ import { getDurationFromMilliseconds } from '../../functions/get.duration.from.m
 import { getPlaylistName } from '../../functions/get.playlist.name';
 import { getTrackArtistNames } from '../../functions/get.track.artists';
 import { Column } from '../column';
+import { LoadingTracksModal } from '../loading.tracks.modal';
 import { PlaylistMenu } from '../playlist.menu';
 import { Row } from '../row';
 import { use } from '../../objects/use';
 
-export const FindDuplicates = () => {
+export const Duplicates = () => {
    const [exactDuplicates, setExactDuplicates] = useState(null);
    const [likelyDuplicates, setLikelyDuplicates] = useState(null);
+   const [loadingModalIsOpen, setLoadingModalIsOpen] = useState(false);
    const [noDuplicates, setNoDuplicates] = useState(null);
    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
    
@@ -22,7 +24,7 @@ export const FindDuplicates = () => {
    const dedup = () => {
       let exactDuplicatesFound = [];
       let likelyDuplicatesFound = [];
-      const tracks = use.playlistsApi.tracks.map(track => track);
+      const tracks = use.playlistsEndpoint.tracks.map(track => track);
       for (let i = 0; i < tracks.length; i++) {
          let originalTrackPushed = false;
          for (let j = i + 1; j < tracks.length; j++) {
@@ -176,17 +178,19 @@ export const FindDuplicates = () => {
    const updateSelectedPlaylist = (event = {}) => {
       allow.aPopulatedObject(event);
       const playlistId = event.target.value;
+      if (playlistId !== '')
+         use.playlistsEndpoint.getTracks(playlistId);
+      setLoadingModalIsOpen(playlistId !== '');
       setSelectedPlaylistId(playlistId);
       setExactDuplicates(null);
       setLikelyDuplicates(null);
       setNoDuplicates(null);
       use.global.updatePlaylistTracksLoaded(false);
-      if (playlistId !== '')
-         use.playlistsApi.getTracks(playlistId);
    }
    
    return (
       <>
+         <LoadingTracksModal open={loadingModalIsOpen && !use.global.playlistTracksLoaded}/>
          <h1 style={{marginTop: 0}}>Find Duplicate Tracks In A Playlist</h1>
          <Row>
             <Column xs={12} sm={10} md={8} lg={6} xl={4}>

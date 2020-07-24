@@ -7,16 +7,16 @@ export const Header = () => {
    const getLoggedInAs = () => {
       if (!use.global.isLoggedIn)
          return 'Logged Out';
-      const { display_name } = use.meApi.me;
+      const { display_name } = use.meEndpoint.me;
       return `Logged in as: ${display_name}`;
    }
    
    return (
       <Row style={{
          backgroundColor: '#aaaaaa',
-         paddingLeft: 2,
-         paddingRight: 2,
-         paddingTop: 2,
+         paddingLeft: 50,
+         paddingRight: 50,
+         paddingTop: 10,
       }}>
          <Column
             xs={12}
