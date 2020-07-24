@@ -1,13 +1,14 @@
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
 import { allow } from '../../classes/allow';
+import { Column } from '../column';
 import { getDurationFromMilliseconds } from '../../functions/get.duration.from.milliseconds';
 import { getPlaylistName } from '../../functions/get.playlist.name';
 import { getTrackArtistNames } from '../../functions/get.track.artists';
-import { Column } from '../column';
 import { LoadingTracksModal } from '../loading.tracks.modal';
 import { PlaylistMenu } from '../playlist.menu';
 import { Row } from '../row';
+import { tracksAreLikelyDuplicates } from '../../functions/tracks.are.likely.duplicates';
 import { use } from '../../objects/use';
 
 export const Duplicates = () => {
@@ -17,7 +18,6 @@ export const Duplicates = () => {
    const [noDuplicates, setNoDuplicates] = useState(null);
    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
    
-   const durationTolerance = 8;
    const tdStyle = {padding: '3px 10px 3px 0px'};
    const thStyle = {textAlign: 'left'};
    
@@ -38,7 +38,7 @@ export const Duplicates = () => {
                exactDuplicatesFound.push(track2);
                continue;
             }
-            if (track1.name.toLowerCase() === track2.name.toLowerCase() && tracksHaveSomeMatchingArtists(track1, track2) && tracksHaveMatchingDuration(track1, track2))
+            if (tracksAreLikelyDuplicates(track1, track2))
                likelyDuplicatesFound.push([track1, track2]);
          }
       }
@@ -56,6 +56,19 @@ export const Duplicates = () => {
                </Column>
             </Row>
          );
+   }
+   
+   const getTableHead = () => {
+      return (
+         <thead>
+            <tr>
+               <th style={thStyle}>Title</th>
+               <th style={thStyle}>Artist</th>
+               <th style={thStyle}>Album</th>
+               <th style={thStyle}>Time</th>
+            </tr>
+         </thead>
+      );
    }
    
    const populateExactDuplicates = (tracks = []) => {
@@ -83,14 +96,7 @@ export const Duplicates = () => {
                   These are copies <i>of the exact same track</i> repeated in the <b>{getPlaylistName(selectedPlaylistId)}</b> playlist:
                </div>
                <table style={{marginTop: 20}}>
-                  <thead>
-                     <tr>
-                        <th style={thStyle}>Title</th>
-                        <th style={thStyle}>Artist</th>
-                        <th style={thStyle}>Album</th>
-                        <th style={thStyle}>Time</th>
-                     </tr>
-                  </thead>
+                  {getTableHead()}
                   <tbody>
                      {displayDuplicates}
                   </tbody>
@@ -135,14 +141,7 @@ export const Duplicates = () => {
                   These tracks <i>appear</i> to be the same in the <b>{getPlaylistName(selectedPlaylistId)}</b> playlist:
                </div>
                <table style={{marginTop: 20}}>
-                  <thead>
-                     <tr>
-                        <th style={thStyle}>Title</th>
-                        <th style={thStyle}>Artist</th>
-                        <th style={thStyle}>Album</th>
-                        <th style={thStyle}>Time</th>
-                     </tr>
-                  </thead>
+                  {getTableHead()}
                   <tbody>
                      {duplicateRows}
                   </tbody>
@@ -151,30 +150,7 @@ export const Duplicates = () => {
          </Row>
       );
    }
-   
-   const tracksHaveMatchingDuration = (track1 = {}, track2 = {}) => {
-      allow.aPopulatedObject(track1).aPopulatedObject(track2);
-      const { duration_ms: track1Duration } = track1;
-      const { duration_ms: track2Duration } = track2;
-      const track1Seconds = Math.floor(track1Duration / 1000);
-      const track2Seconds = Math.floor(track2Duration / 1000);
-      return track2Seconds <= track1Seconds + durationTolerance && track2Seconds >= track1Seconds - durationTolerance;
-   }
-   
-   const tracksHaveSomeMatchingArtists = (track1 = {}, track2 = {}) => {
-      allow.aPopulatedObject(track1).aPopulatedObject(track2);
-      const { artists: artists1 } = track1;
-      const { artists: artists2 } = track2;
-      let matchFound = false;
-      artists1.forEach(artist1 => {
-         artists2.forEach(artist2 => {
-            if (artist1.id === artist2.id || artist1.name.toLowerCase() === artist2.name.toLowerCase())
-               matchFound = true;
-         });
-      });
-      return matchFound;
-   }
-   
+
    const updateSelectedPlaylist = (event = {}) => {
       allow.aPopulatedObject(event);
       const playlistId = event.target.value;
