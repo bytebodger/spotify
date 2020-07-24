@@ -12,6 +12,7 @@ export const Home = () => {
       return (
          <Button
             onClick={goToSpotifyAuthorization}
+            style={{marginTop: 20}}
             variant={'outlined'}
          >
             Log In
@@ -31,8 +32,10 @@ export const Home = () => {
                </p>
                <ol>
                   <li><b>Playlist Shuffling:</b> This is not Spotify's <i>faux-random</i>, heavily-weighted shuffle.  This is <i>true</i> shuffling.  <i>Randomized</i> shuffling.</li>
+                  <br/>
                   <li><b>De-dup'ing of Playlists:</b> Do you find yourself accidentally repeating tracks in a playlist?  This tool will highlight the exact duplicates, and the <i>probable</i> duplicates, that are
                   lurking in your playlists.</li>
+                  <br/>
                   <li><b>Advanced Music Discovery:</b> Spotify's "Recommended Songs" feature has a disturbing tendency to keep regurgiting the same, tired recommendations that you've already rejected.  This tool
                   will provide a much richer set of recommended tracks.</li>
                </ol>
