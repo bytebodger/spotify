@@ -24,6 +24,7 @@ export const PlaylistMenu = props => {
          const { tracks } = playlist;
          return !playlist.name.toLowerCase().includes('shazam')
             && !playlist.name.toLowerCase().includes('rejected')
+            && !playlist.name.toLowerCase().includes('spotify toolz')
             && tracks.total > 1;
       });
       filteredPlaylists.sort(comparePlaylists);
