@@ -5,6 +5,8 @@ Utilities to provide additional Spotify functionality.  Current tools include:
 
 1. Find duplicates.  This will identify any "exact" duplicates (i.e., when the _exact same song_ has been included in a playlist two-or-more times).  But it will also look for "probable" duplicates - those instances where multiple songs in a playlist share a common name and artist and have a near-identical length.<br/>
 
+1. Recommendations.  Pick an existing playlist and the tool will find recommended music, then place that music into a "Spotify Tool Recommendations" playlist.<br/><br/>
+
 To see the live code in action, go here:<br/>
 
 https://www.spotifytoolz.com
