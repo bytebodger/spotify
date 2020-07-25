@@ -15,8 +15,8 @@ import { use } from '../objects/use';
 export const Body = () => {
    const location = useLocation();
    
-   const renderComponent = (component = {}) => {
-      allow.aPopulatedObject(component);
+   const renderComponent = (component = <></>) => {
+      allow.aReactElement(component);
       return (
          <div style={{
             padding: 20,

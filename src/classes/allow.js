@@ -1,3 +1,5 @@
+import React from 'react';
+
 class Allow {
    throwOnError = true;
    
@@ -138,6 +140,14 @@ class Allow {
       }
       return this;
    };
+   
+   aReactElement = (value = <></>) => {
+      if (!React.isValidElement(value)) {
+         console.error(value);
+         throw new Error('is not a React element');
+      }
+      return this;
+   }
    
    aString = (value = '') => {
       if (typeof value !== 'string' && this.throwOnError) {
