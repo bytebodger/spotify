@@ -18,7 +18,7 @@ export const usePlaylistsEndpoint = () => {
    }
    
    const addTracks = (playlistId = '', uris = []) => {
-      allow.aPopulatedString(playlistId).aPopulatedArray(uris);
+      allow.aPopulatedString(playlistId).aPopulatedArrayOfStrings(uris);
       return api.call(the.method.post, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    
@@ -71,7 +71,7 @@ export const usePlaylistsEndpoint = () => {
    }
    
    const replaceTracks = (playlistId = '', uris = []) => {
-      allow.aPopulatedString(playlistId).aPopulatedArray(uris);
+      allow.aPopulatedString(playlistId).aPopulatedArrayOfStrings(uris);
       return api.call(the.method.put, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    

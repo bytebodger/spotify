@@ -6,7 +6,7 @@ export const useRecommendationsEndpoint = () => {
    const api = useApi();
    
    const getRecommendations = (seedTrackIds = []) => {
-      allow.anArray(seedTrackIds);
+      allow.anArrayOfStrings(seedTrackIds);
       const parameters = {
          seed_tracks: seedTrackIds.join(','),
       };

@@ -25,6 +25,12 @@ class Allow {
       return this;
    };
    
+   anArrayOfStrings = (value = []) => {
+      this.anArray(value);
+      value.forEach(item => this.aString(item));
+      return this;
+   }
+   
    anInteger = (value = 0) => {
       if (!Number.isInteger(value) && this.throwOnError) {
          console.error(value);
@@ -65,6 +71,16 @@ class Allow {
       }
       return this;
    };
+   
+   aPopulatedArrayOfStrings = (value = []) => {
+      this.anArray(value);
+      value.forEach(item => this.aString(item));
+      if (value.length === 0) {
+         console.error(value);
+         throw new Error('is not a populated array of strings');
+      }
+      return this;
+   }
    
    aPopulatedObject = (value = {}) => {
       this.anObject(value);
