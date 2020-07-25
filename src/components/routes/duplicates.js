@@ -72,7 +72,7 @@ export const Duplicates = () => {
    }
    
    const populateExactDuplicates = (tracks = []) => {
-      allow.anArray(tracks);
+      allow.anArrayOfObjects(tracks);
       if (tracks.length === 0) {
          setExactDuplicates(null);
          return;

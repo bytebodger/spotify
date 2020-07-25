@@ -17,7 +17,7 @@ export const Recommend = () => {
    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
    
    const checkRecommendationPlaylist = (recommendations = []) => {
-      allow.anArray(recommendations);
+      allow.anArrayOfObjects(recommendations);
       if (!use.playlistsEndpoint.recommendationPlaylistExists)
          use.usersEndpoint.createPlaylist('Spotify Toolz Recommendations')
             .then(response => {
@@ -33,7 +33,7 @@ export const Recommend = () => {
    }
    
    const getRecommendations = (seedBatches = [], allRecommendations = []) => {
-      allow.anArray(seedBatches).anArray(allRecommendations);
+      allow.anArray(seedBatches).anArrayOfObjects(allRecommendations);
       const seedBatch = seedBatches.shift();
       const tracksFromPlaylistsEndpoint = use.playlistsEndpoint.tracks.map(track => track.track);
       use.recommendationsEndpoint.getRecommendations(seedBatch)
@@ -57,7 +57,7 @@ export const Recommend = () => {
    }
    
    const trackExistsInList = (track = {}, list = []) => {
-      allow.aPopulatedObject(track).anArray(list);
+      allow.aPopulatedObject(track).anArrayOfObjects(list);
       return list.some(item => item.id === track.id || tracksAreLikelyDuplicates(item, track));
    }
    
@@ -105,7 +105,7 @@ export const Recommend = () => {
    }
    
    const saveRecommendations = (playlistId = '', recommendations = []) => {
-      allow.aPopulatedString(playlistId).anArray(recommendations);
+      allow.aPopulatedString(playlistId).anArrayOfObjects(recommendations);
       if (recommendations.length === 0)
          return;
       const uris = recommendations.map(recommendation => recommendation.uri);

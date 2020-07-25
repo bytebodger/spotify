@@ -23,7 +23,7 @@ export const usePlaylistsEndpoint = () => {
    }
    
    const getPlaylists = (offset = 0, allPlaylists = []) => {
-      allow.aNonNegativeInteger(offset).anArray(allPlaylists);
+      allow.aNonNegativeInteger(offset).anArrayOfObjects(allPlaylists);
       if (offset === 0) {
          local.setItem('playlists', []);
          setPlaylists([]);
@@ -49,7 +49,7 @@ export const usePlaylistsEndpoint = () => {
    }
    
    const getTracks = (playlistId = '', offset = 0, allTracks = []) => {
-      allow.aPopulatedString(playlistId).aNonNegativeInteger(offset).anArray(allTracks);
+      allow.aPopulatedString(playlistId).aNonNegativeInteger(offset).anArrayOfObjects(allTracks);
       if (offset === 0) {
          setTracks([]);
          use.global.updatePlaylistTracksLoaded(false);
