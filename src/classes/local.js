@@ -1,4 +1,5 @@
 import { allow } from './allow';
+import { is } from '../objects/is';
 import { temp } from '../objects/temp';
 
 /*
@@ -19,7 +20,7 @@ class Local {
    };
    
    getItem = (itemName = '', defaultValue = '__noDefaultValueSupplied__') => {
-      allow.aPopulatedString(itemName);
+      allow.aString(itemName, is.not.empty);
       if (this.localStorageIsSupported()) {
          const valueObject = JSON.parse(localStorage.getItem(itemName));
          if (valueObject === null && defaultValue !== '__noDefaultValueSupplied__') {
@@ -56,7 +57,7 @@ class Local {
    };
    
    removeItem = (itemName = '') => {
-      allow.aPopulatedString(itemName);
+      allow.aString(itemName, is.not.empty);
       if (this.localStorageIsSupported())
          localStorage.removeItem(itemName);
       else if (this.temp.hasOwnProperty(itemName))
@@ -65,7 +66,7 @@ class Local {
    };
    
    setItem = (itemName, itemValue = null) => {
-      allow.aPopulatedString(itemName);
+      allow.aString(itemName, is.not.empty);
       if (this.localStorageIsSupported()) {
          const valueToBeSerialized = {value : itemValue};
          const serializedValue = JSON.stringify(valueToBeSerialized);

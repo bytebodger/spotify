@@ -1,7 +1,8 @@
 import { allow } from '../classes/allow';
+import { is } from '../objects/is';
 
 export const tracksShareAnArtist = (track1 = {}, track2 = {}) => {
-   allow.aPopulatedObject(track1).aPopulatedObject(track2);
+   allow.anObject(track1, is.not.empty).anObject(track2, is.not.empty);
    const { artists: artists1 } = track1;
    const { artists: artists2 } = track2;
    let matchFound = false;

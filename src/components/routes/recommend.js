@@ -1,14 +1,15 @@
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
 import { allow } from '../../classes/allow';
-import { local } from '../../classes/local';
-import { getTrackArtistNames } from '../../functions/get.track.artists';
-import { tracksAreLikelyDuplicates } from '../../functions/tracks.are.likely.duplicates';
 import { Column } from '../column';
 import { getRandomizedTracks } from '../../functions/get.randomized.tracks';
+import { getTrackArtistNames } from '../../functions/get.track.artists';
+import { is } from '../../objects/is';
 import { LoadingTracksModal } from '../loading.tracks.modal';
+import { local } from '../../classes/local';
 import { PlaylistMenu } from '../playlist.menu';
 import { Row } from '../row';
+import { tracksAreLikelyDuplicates } from '../../functions/tracks.are.likely.duplicates';
 import { use } from '../../objects/use';
 
 export const Recommend = () => {
@@ -57,7 +58,7 @@ export const Recommend = () => {
    }
    
    const trackExistsInList = (track = {}, list = []) => {
-      allow.aPopulatedObject(track).anArrayOfObjects(list);
+      allow.anObject(track, is.not.empty).anArrayOfObjects(list);
       return list.some(item => item.id === track.id || tracksAreLikelyDuplicates(item, track));
    }
    
@@ -105,7 +106,7 @@ export const Recommend = () => {
    }
    
    const saveRecommendations = (playlistId = '', recommendations = []) => {
-      allow.aPopulatedString(playlistId).anArrayOfObjects(recommendations);
+      allow.aString(playlistId, is.not.empty).anArrayOfObjects(recommendations);
       if (recommendations.length === 0)
          return;
       const uris = recommendations.map(recommendation => recommendation.uri);
@@ -113,7 +114,7 @@ export const Recommend = () => {
    }
    
    const updateSelectedPlaylist = (event = {}) => {
-      allow.aPopulatedObject(event);
+      allow.anObject(event, is.not.empty);
       setDisplayedRecommendations([]);
       const playlistId = event.target.value;
       if (playlistId !== '')

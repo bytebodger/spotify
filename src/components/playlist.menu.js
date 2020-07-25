@@ -5,11 +5,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import React from 'react';
 import Select from '@material-ui/core/Select';
 import { allow } from '../classes/allow';
+import { is } from '../objects/is';
 import { use } from '../objects/use';
 
 export const PlaylistMenu = props => {
    const comparePlaylists = (playlist1 = {}, playlist2 = {}) => {
-      allow.aPopulatedObject(playlist1).aPopulatedObject(playlist2);
+      allow.anObject(playlist1, is.not.empty).anObject(playlist2, is.not.empty);
       if (playlist1.name.toLowerCase() < playlist2.name.toLowerCase())
          return -1;
       else if (playlist1.name.toLowerCase() > playlist2.name.toLowerCase())

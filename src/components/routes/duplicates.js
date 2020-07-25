@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
 import { allow } from '../../classes/allow';
+import { is } from '../../objects/is';
 import { Column } from '../column';
 import { getDurationFromMilliseconds } from '../../functions/get.duration.from.milliseconds';
 import { getPlaylistName } from '../../functions/get.playlist.name';
@@ -152,7 +153,7 @@ export const Duplicates = () => {
    }
 
    const updateSelectedPlaylist = (event = {}) => {
-      allow.aPopulatedObject(event);
+      allow.anObject(event, is.not.empty);
       const playlistId = event.target.value;
       if (playlistId !== '')
          use.playlistsEndpoint.getTracks(playlistId);

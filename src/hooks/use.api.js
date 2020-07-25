@@ -1,13 +1,14 @@
 import axios from 'axios';
 import qs from 'qs';
 import { allow } from '../classes/allow';
+import { is } from '../objects/is';
 import { local } from '../classes/local';
 import { the } from '../objects/the';
 import { use } from '../objects/use';
 
 export const useApi = () => {
    const call = async (method = the.method.get, url = '', data = {}, verifyAccessToken = true) => {
-      allow.oneOf(method, the.method).aPopulatedString(url).anObject(data).aBoolean(verifyAccessToken);
+      allow.oneOf(method, the.method).aString(url, is.not.empty).anObject(data).aBoolean(verifyAccessToken);
       if (verifyAccessToken) {
          await checkAccessToken(verifyAccessToken);
       }

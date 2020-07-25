@@ -1,7 +1,8 @@
 import { allow } from '../classes/allow';
+import { is } from '../objects/is';
 
 export const tracksAreSimilarLength = (track1 = {}, track2 = {}, tolerance = 0) => {
-   allow.aPopulatedObject(track1).aPopulatedObject(track2).aNonNegativeInteger(tolerance);
+   allow.anObject(track1, is.not.empty).anObject(track2, is.not.empty).anInteger(tolerance, is.not.negative);
    const { duration_ms: track1Duration } = track1;
    const { duration_ms: track2Duration } = track2;
    const track1Seconds = Math.floor(track1Duration / 1000);

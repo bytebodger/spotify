@@ -1,6 +1,7 @@
 import { allow } from '../classes/allow';
 import { createGuid } from '../functions/create.guid';
 import { getSessionValues } from '../functions/get.session.values';
+import { is } from '../objects/is';
 import { local } from '../classes/local';
 import { useState } from 'react';
 
@@ -22,7 +23,7 @@ export const useGlobal = () => {
    }
    
    const updateAccessTokenExpiresOn = (timestamp = 0) => {
-      allow.aPositiveInteger(timestamp);
+      allow.anInteger(timestamp, is.positive);
       local.setItem('accessTokenExpiresOn', timestamp);
       setAccessTokenExpiresOn(timestamp);
    }

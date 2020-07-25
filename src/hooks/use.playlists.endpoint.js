@@ -13,18 +13,18 @@ export const usePlaylistsEndpoint = () => {
    const api = useApi();
    
    const addPlaylist = (playlist = {}) => {
-      allow.aPopulatedObject(playlist);
+      allow.anObject(playlist, is.not.empty);
       local.setItem('playlists', [...playlists, playlist]);
       setPlaylists([...playlists, playlist]);
    }
    
    const addTracks = (playlistId = '', uris = []) => {
-      allow.aPopulatedString(playlistId).anArrayOfStrings(uris, is.not.empty);
+      allow.aString(playlistId, is.not.empty).anArrayOfStrings(uris, is.not.empty);
       return api.call(the.method.post, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    
    const getPlaylists = (offset = 0, allPlaylists = []) => {
-      allow.aNonNegativeInteger(offset).anArrayOfObjects(allPlaylists);
+      allow.anInteger(offset, is.not.negative).anArrayOfObjects(allPlaylists);
       if (offset === 0) {
          local.setItem('playlists', []);
          setPlaylists([]);
@@ -50,7 +50,7 @@ export const usePlaylistsEndpoint = () => {
    }
    
    const getTracks = (playlistId = '', offset = 0, allTracks = []) => {
-      allow.aPopulatedString(playlistId).aNonNegativeInteger(offset).anArrayOfObjects(allTracks);
+      allow.aString(playlistId, is.not.empty).anInteger(offset, is.not.negative).anArrayOfObjects(allTracks);
       if (offset === 0) {
          setTracks([]);
          use.global.updatePlaylistTracksLoaded(false);
@@ -72,7 +72,7 @@ export const usePlaylistsEndpoint = () => {
    }
    
    const replaceTracks = (playlistId = '', uris = []) => {
-      allow.aPopulatedString(playlistId).anArrayOfStrings(uris, is.not.empty);
+      allow.aString(playlistId, is.not.empty).anArrayOfStrings(uris, is.not.empty);
       return api.call(the.method.put, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    

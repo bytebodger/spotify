@@ -1,7 +1,8 @@
 import { allow } from '../classes/allow';
+import { is } from '../objects/is';
 
 export const createGuid = (length = 32) => {
-   allow.aPositiveInteger(length);
+   allow.anInteger(length, is.positive);
    let guid = '';
    if (length < 1)
       length = 32;
@@ -9,10 +10,10 @@ export const createGuid = (length = 32) => {
    const alphanumeric = alpha.concat(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']);
    for (let i = 0; i < length; i++) {
       if (i === 0) {
-         let randomNumber = Math.floor(Math.random() * 25);
+         let randomNumber = Math.floor(Math.random() * 26);
          guid += alpha[randomNumber];
       } else {
-         let randomNumber = Math.floor(Math.random() * 35);
+         let randomNumber = Math.floor(Math.random() * 36);
          guid += alphanumeric[randomNumber];
       }
    }

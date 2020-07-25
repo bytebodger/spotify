@@ -29,7 +29,7 @@ export const Shuffle = () => {
    }
    
    const getTrackDescription = (track = {}, index = -1) => {
-      allow.aPopulatedObject(track).aNonNegativeInteger(index);
+      allow.anObject(track, is.not.empty).anInteger(index, is.not.negative);
       return (
          <div key={track.track.id + index}>
             {index + 1}. {track.track.name} by {getTrackArtistNames(track.track)}
@@ -48,7 +48,7 @@ export const Shuffle = () => {
    }
 
    const updateSelectedPlaylist = (event = {}) => {
-      allow.aPopulatedObject(event);
+      allow.anObject(event, is.not.empty);
       const playlistId = event.target.value;
       if (playlistId !== '')
          use.playlistsEndpoint.getTracks(playlistId);
