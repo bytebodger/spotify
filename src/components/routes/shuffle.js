@@ -15,7 +15,7 @@ export const Shuffle = () => {
    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
    
    const addTracks = (batches = []) => {
-      allow.aPopulatedArray(batches);
+      allow.aPopulatedArrayOfArrays(batches);
       const batch = batches.shift();
       use.playlistsEndpoint.addTracks(selectedPlaylistId, batch);
       if (batches.length > 0)
@@ -37,7 +37,7 @@ export const Shuffle = () => {
    }
    
    const rebuildPlaylist = (batches = []) => {
-      allow.aPopulatedArray(batches);
+      allow.aPopulatedArrayOfArrays(batches);
       const firstBatch = batches.shift();
       use.playlistsEndpoint.replaceTracks(selectedPlaylistId, firstBatch)
          .then(() => {
@@ -58,7 +58,7 @@ export const Shuffle = () => {
    }
    
    const updateTracks = (tracks = []) => {
-      allow.aPopulatedArray(tracks);
+      allow.aPopulatedArrayOfObjects(tracks);
       let currentBatch = [];
       let uriBatches = [];
       let display = [];

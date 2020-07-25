@@ -107,7 +107,7 @@ export const Duplicates = () => {
    }
    
    const populateLikelyDuplicates = (pairs = []) => {
-      allow.anArray(pairs);
+      allow.anArrayOfArrays(pairs);
       if (pairs.length === 0) {
          setLikelyDuplicates(null);
          return;

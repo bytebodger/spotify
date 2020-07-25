@@ -33,7 +33,7 @@ export const Recommend = () => {
    }
    
    const getRecommendations = (seedBatches = [], allRecommendations = []) => {
-      allow.anArray(seedBatches).anArrayOfObjects(allRecommendations);
+      allow.anArrayOfArrays(seedBatches).anArrayOfObjects(allRecommendations);
       const seedBatch = seedBatches.shift();
       const tracksFromPlaylistsEndpoint = use.playlistsEndpoint.tracks.map(track => track.track);
       use.recommendationsEndpoint.getRecommendations(seedBatch)

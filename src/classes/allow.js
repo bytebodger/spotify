@@ -25,6 +25,12 @@ class Allow {
       return this;
    };
    
+   anArrayOfArrays = (value = []) => {
+      this.anArray(value);
+      value.forEach(item => this.anArray(item));
+      return this;
+   }
+   
    anArrayOfObjects = (value = []) => {
       this.anArray(value);
       value.forEach(item => this.anObject(item));
@@ -77,6 +83,16 @@ class Allow {
       }
       return this;
    };
+   
+   aPopulatedArrayOfArrays = (value = []) => {
+      this.anArray(value);
+      value.forEach(item => this.anArray(item));
+      if (value.length === 0) {
+         console.error(value);
+         throw new Error('is not a populated array of arrays');
+      }
+      return this;
+   }
    
    aPopulatedArrayOfObjects = (value = []) => {
       this.anArray(value);
