@@ -1,4 +1,5 @@
 import { allow } from '../classes/allow';
+import { is } from '../objects/is';
 import { local } from '../classes/local';
 import { the } from '../objects/the';
 import { use } from '../objects/use';
@@ -18,7 +19,7 @@ export const usePlaylistsEndpoint = () => {
    }
    
    const addTracks = (playlistId = '', uris = []) => {
-      allow.aPopulatedString(playlistId).aPopulatedArrayOfStrings(uris);
+      allow.aPopulatedString(playlistId).anArrayOfStrings(uris, is.not.empty);
       return api.call(the.method.post, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    
@@ -71,7 +72,7 @@ export const usePlaylistsEndpoint = () => {
    }
    
    const replaceTracks = (playlistId = '', uris = []) => {
-      allow.aPopulatedString(playlistId).aPopulatedArrayOfStrings(uris);
+      allow.aPopulatedString(playlistId).anArrayOfStrings(uris, is.not.empty);
       return api.call(the.method.put, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    

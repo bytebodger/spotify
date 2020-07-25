@@ -4,6 +4,7 @@ import { allow } from '../../classes/allow';
 import { Column } from '../column';
 import { getRandomizedTracks } from '../../functions/get.randomized.tracks';
 import { getTrackArtistNames } from '../../functions/get.track.artists';
+import { is } from '../../objects/is';
 import { LoadingTracksModal } from '../loading.tracks.modal';
 import { PlaylistMenu } from '../playlist.menu';
 import { Row } from '../row';
@@ -15,7 +16,7 @@ export const Shuffle = () => {
    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
    
    const addTracks = (batches = []) => {
-      allow.aPopulatedArrayOfArrays(batches);
+      allow.anArrayOfArrays(batches, is.not.empty);
       const batch = batches.shift();
       use.playlistsEndpoint.addTracks(selectedPlaylistId, batch);
       if (batches.length > 0)
@@ -37,7 +38,7 @@ export const Shuffle = () => {
    }
    
    const rebuildPlaylist = (batches = []) => {
-      allow.aPopulatedArrayOfArrays(batches);
+      allow.anArrayOfArrays(batches, is.not.empty);
       const firstBatch = batches.shift();
       use.playlistsEndpoint.replaceTracks(selectedPlaylistId, firstBatch)
          .then(() => {
@@ -58,7 +59,7 @@ export const Shuffle = () => {
    }
    
    const updateTracks = (tracks = []) => {
-      allow.aPopulatedArrayOfObjects(tracks);
+      allow.anArrayOfObjects(tracks, is.not.empty);
       let currentBatch = [];
       let uriBatches = [];
       let display = [];
