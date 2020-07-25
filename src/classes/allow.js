@@ -31,6 +31,13 @@ class Allow {
       return this;
    }
    
+   anArrayOfIntegers = (value = [], minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
+      this.anArray(value).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
+      value.forEach(item => this.anInteger(item));
+      this.checkLength(value, minLength, maxLength);
+      return this;
+   }
+   
    anArrayOfObjects = (value = [], minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
       this.anArray(value).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
       value.forEach(item => this.anObject(item));
