@@ -1,8 +1,7 @@
 import { allow } from '../classes/allow';
-import { is } from '../objects/is';
+import { trackModel } from '../objects/models/track.model';
 
-export const getTrackArtistNames = (track = {}) => {
-   allow.anObject(track, is.not.empty);
-   const { artists } = track;
-   return artists.map(artist => artist.name).join(', ');
+export const getTrackArtistNames = (track = trackModel) => {
+   allow.anInstanceOf(track, trackModel);
+   return track.artists.map(artist => artist.name).join(', ');
 }

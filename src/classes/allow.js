@@ -1,5 +1,6 @@
 import React from 'react';
 import { is } from '../objects/is';
+import { isAnObject } from '../functions/is.an.object';
 
 class Allow {
    throwOnFailure = true;
@@ -49,6 +50,31 @@ class Allow {
       this.anArray(value).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
       value.forEach(item => this.aString(item));
       this.checkLength(value, minLength, maxLength);
+      return this;
+   }
+   
+   anInstanceOf = (suppliedObject = {}, modelObject = {}) => {
+      this.anObject(suppliedObject).anObject(modelObject);
+      const modelKeys = Object.keys(modelObject);
+      let aKeyIsMissing = false;
+      modelKeys.forEach(modelKey => {
+         if (!suppliedObject.hasOwnProperty(modelKey))
+            aKeyIsMissing = true;
+         else {
+            const suppliedValue = suppliedObject[modelKey];
+            const modelValue = modelObject[modelKey];
+            const isSuppliedValueAnObject = isAnObject(suppliedValue);
+            const isSuppliedValueAnArray = Array.isArray(suppliedValue);
+            const isModelValueAnObject = isAnObject(modelValue);
+            const isModelValueAnArray = Array.isArray(modelValue);
+            if (isSuppliedValueAnObject !== isModelValueAnObject || isSuppliedValueAnArray !== isModelValueAnArray)
+               this.fail(suppliedObject, 'does not match the model object');
+            else if (isModelValueAnObject)
+               this.anInstanceOf(suppliedValue, modelValue);
+         }
+      });
+      if (aKeyIsMissing)
+         this.fail(suppliedObject, 'is missing a required key');
       return this;
    }
    

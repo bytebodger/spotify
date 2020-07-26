@@ -1,3 +1,4 @@
+import { getCurrentTimeInSeconds } from '../functions/get.current.time.in.seconds';
 import { getRedirectUri } from '../functions/get.redirect.uri';
 import { local } from '../classes/local';
 import { the } from '../objects/the';
@@ -27,7 +28,7 @@ export const useTokenEndpoint = () => {
             if (access_token)
                use.global.updateAccessToken(access_token);
             if (expires_in)
-               use.global.updateAccessTokenExpiresOn((Math.floor(Date.now() / 1000)) + expires_in);
+               use.global.updateAccessTokenExpiresOn(getCurrentTimeInSeconds() + expires_in);
             if (refresh_token)
                use.global.updateRefreshToken(refresh_token);
             use.meEndpoint.getMe();
@@ -47,7 +48,7 @@ export const useTokenEndpoint = () => {
             if (access_token)
                use.global.updateAccessToken(access_token);
             if (expires_in)
-               use.global.updateAccessTokenExpiresOn((Math.floor(Date.now() / 1000)) + expires_in);
+               use.global.updateAccessTokenExpiresOn(getCurrentTimeInSeconds() + expires_in);
             if (refresh_token)
                use.global.updateRefreshToken(refresh_token);
          });

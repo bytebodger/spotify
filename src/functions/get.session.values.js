@@ -1,3 +1,4 @@
+import { getCurrentTimeInSeconds } from './get.current.time.in.seconds';
 import { local } from '../classes/local';
 
 export const getSessionValues = () => {
@@ -9,7 +10,7 @@ export const getSessionValues = () => {
       isLoggedIn: true,
       refreshToken: local.getItem('refreshToken', ''),
    };
-   const remainingSecondsInSession = session.accessTokenExpiresOn - Math.floor(Date.now() / 1000);
+   const remainingSecondsInSession = session.accessTokenExpiresOn - getCurrentTimeInSeconds();
    if (remainingSecondsInSession < 0) {
       session.accessToken = '';
       session.accessTokenExpiresOn = 0;

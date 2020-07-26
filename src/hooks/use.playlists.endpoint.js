@@ -1,6 +1,7 @@
 import { allow } from '../classes/allow';
 import { is } from '../objects/is';
 import { local } from '../classes/local';
+import { playlistModel } from '../objects/models/playlist.model';
 import { the } from '../objects/the';
 import { use } from '../objects/use';
 import { useApi } from './use.api';
@@ -12,8 +13,8 @@ export const usePlaylistsEndpoint = () => {
    const [tracks, setTracks] = useState([]);
    const api = useApi();
    
-   const addPlaylist = (playlist = {}) => {
-      allow.anObject(playlist, is.not.empty);
+   const addPlaylist = (playlist = playlistModel) => {
+      allow.anInstanceOf(playlist, playlistModel);
       local.setItem('playlists', [...playlists, playlist]);
       setPlaylists([...playlists, playlist]);
    }

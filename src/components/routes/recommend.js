@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
 import { allow } from '../../classes/allow';
+import { eventModel } from '../../objects/models/event.model';
 import { Column } from '../column';
 import { getRandomizedTracks } from '../../functions/get.randomized.tracks';
 import { getTrackArtistNames } from '../../functions/get.track.artists';
@@ -9,6 +10,7 @@ import { LoadingTracksModal } from '../loading.tracks.modal';
 import { local } from '../../classes/local';
 import { PlaylistMenu } from '../playlist.menu';
 import { Row } from '../row';
+import { trackModel } from '../../objects/models/track.model';
 import { tracksAreLikelyDuplicates } from '../../functions/tracks.are.likely.duplicates';
 import { use } from '../../objects/use';
 
@@ -57,8 +59,8 @@ export const Recommend = () => {
          });
    }
    
-   const trackExistsInList = (track = {}, list = []) => {
-      allow.anObject(track, is.not.empty).anArrayOfObjects(list);
+   const trackExistsInList = (track = trackModel, list = []) => {
+      allow.anInstanceOf(track, trackModel).anArrayOfObjects(list);
       return list.some(item => item.id === track.id || tracksAreLikelyDuplicates(item, track));
    }
    
@@ -113,8 +115,8 @@ export const Recommend = () => {
       use.playlistsEndpoint.replaceTracks(playlistId, uris);
    }
    
-   const updateSelectedPlaylist = (event = {}) => {
-      allow.anObject(event, is.not.empty);
+   const updateSelectedPlaylist = (event = eventModel) => {
+      allow.anInstanceOf(event, eventModel);
       setDisplayedRecommendations([]);
       const playlistId = event.target.value;
       if (playlistId !== '')

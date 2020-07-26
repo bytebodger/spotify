@@ -1,8 +1,8 @@
 import { allow } from '../classes/allow';
-import { is } from '../objects/is';
+import { trackModel } from '../objects/models/track.model';
 
-export const tracksShareAnArtist = (track1 = {}, track2 = {}) => {
-   allow.anObject(track1, is.not.empty).anObject(track2, is.not.empty);
+export const tracksShareAnArtist = (track1 = trackModel, track2 = trackModel) => {
+   allow.anInstanceOf(track1, trackModel).anInstanceOf(track2, trackModel);
    const { artists: artists1 } = track1;
    const { artists: artists2 } = track2;
    let matchFound = false;

@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
 import { allow } from '../../classes/allow';
+import { eventModel } from '../../objects/models/event.model';
 import { Column } from '../column';
 import { getRandomizedTracks } from '../../functions/get.randomized.tracks';
 import { getTrackArtistNames } from '../../functions/get.track.artists';
@@ -8,6 +9,7 @@ import { is } from '../../objects/is';
 import { LoadingTracksModal } from '../loading.tracks.modal';
 import { PlaylistMenu } from '../playlist.menu';
 import { Row } from '../row';
+import { trackModel } from '../../objects/models/track.model';
 import { use } from '../../objects/use';
 
 export const Shuffle = () => {
@@ -28,11 +30,11 @@ export const Shuffle = () => {
       return playlist ? playlist.name : '';
    }
    
-   const getTrackDescription = (track = {}, index = -1) => {
-      allow.anObject(track, is.not.empty).anInteger(index, is.not.negative);
+   const getTrackDescription = (track = trackModel, index = -1) => {
+      allow.anInstanceOf(track, trackModel).anInteger(index, is.not.negative);
       return (
-         <div key={track.track.id + index}>
-            {index + 1}. {track.track.name} by {getTrackArtistNames(track.track)}
+         <div key={track.id + index}>
+            {index + 1}. {track.name} by {getTrackArtistNames(track)}
          </div>
       );
    }
@@ -47,8 +49,8 @@ export const Shuffle = () => {
          });
    }
 
-   const updateSelectedPlaylist = (event = {}) => {
-      allow.anObject(event, is.not.empty);
+   const updateSelectedPlaylist = (event = eventModel) => {
+      allow.anInstanceOf(event, eventModel);
       const playlistId = event.target.value;
       if (playlistId !== '')
          use.playlistsEndpoint.getTracks(playlistId);
@@ -65,7 +67,7 @@ export const Shuffle = () => {
       let display = [];
       tracks.forEach((track, index) => {
          display.push(getTrackDescription(track, index));
-         currentBatch.push(track.track.uri);
+         currentBatch.push(track.uri);
          if (index > 0 && (((index + 1) % 100) === 0 || (index + 1) === tracks.length)) {
             uriBatches.push(currentBatch);
             currentBatch = [];

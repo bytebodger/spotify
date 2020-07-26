@@ -1,6 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 import { allow } from '../classes/allow';
+import { getCurrentTimeInSeconds } from '../functions/get.current.time.in.seconds';
 import { is } from '../objects/is';
 import { local } from '../classes/local';
 import { the } from '../objects/the';
@@ -49,7 +50,7 @@ export const useApi = () => {
       allow.aBoolean(verifyAccessToken);
       if (!verifyAccessToken)
          return;
-      const now = Math.floor(Date.now() / 1000);
+      const now = getCurrentTimeInSeconds();
       if (now > use.global.accessTokenExpiresOn) {
          window.location.href = '/home';
          return;
