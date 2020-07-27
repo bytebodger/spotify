@@ -32,9 +32,23 @@ class Allow {
       return this;
    }
    
+   anArrayOfInstances = (value = [], modelObject = {}, minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
+      this.anArray(value).anObject(modelObject).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
+      value.forEach(item => this.anInstanceOf(item, modelObject));
+      this.checkLength(value, minLength, maxLength);
+      return this;
+   }
+   
    anArrayOfIntegers = (value = [], minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
       this.anArray(value).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
       value.forEach(item => this.anInteger(item));
+      this.checkLength(value, minLength, maxLength);
+      return this;
+   }
+   
+   anArrayOfNumbers = (value = [], minLength = 0, maxLength = Number.MAX_SAFE_INTEGER) => {
+      this.anArray(value).anInteger(minLength, is.not.negative).anInteger(maxLength, is.not.negative);
+      value.forEach(item => this.aNumber(item));
       this.checkLength(value, minLength, maxLength);
       return this;
    }

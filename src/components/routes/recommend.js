@@ -19,8 +19,8 @@ export const Recommend = () => {
    const [displayedRecommendations, setDisplayedRecommendations] = useState([]);
    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
    
-   const checkRecommendationPlaylist = (recommendations = []) => {
-      allow.anArrayOfObjects(recommendations);
+   const checkRecommendationPlaylist = (recommendations = [trackModel]) => {
+      allow.anArrayOfInstances(recommendations, trackModel);
       if (!use.playlistsEndpoint.recommendationPlaylistExists)
          use.usersEndpoint.createPlaylist('Spotify Toolz Recommendations')
             .then(response => {
@@ -35,16 +35,15 @@ export const Recommend = () => {
       }
    }
    
-   const getRecommendations = (seedBatches = [], allRecommendations = []) => {
-      allow.anArrayOfArrays(seedBatches).anArrayOfObjects(allRecommendations);
+   const getRecommendations = (seedBatches = [[]], allRecommendations = [trackModel]) => {
+      allow.anArrayOfArrays(seedBatches).anArrayOfInstances(allRecommendations, trackModel);
       const seedBatch = seedBatches.shift();
-      const tracksFromPlaylistsEndpoint = use.playlistsEndpoint.tracks.map(track => track.track);
       use.recommendationsEndpoint.getRecommendations(seedBatch)
          .then(response => {
             response.data.tracks.forEach(recommendedTrack => {
                if (
                   allRecommendations.length === 100
-                  || trackExistsInList(recommendedTrack, tracksFromPlaylistsEndpoint)
+                  || trackExistsInList(recommendedTrack, use.playlistsEndpoint.tracks)
                   || trackExistsInList(recommendedTrack, allRecommendations)
                )
                   return;
@@ -59,8 +58,8 @@ export const Recommend = () => {
          });
    }
    
-   const trackExistsInList = (track = trackModel, list = []) => {
-      allow.anInstanceOf(track, trackModel).anArrayOfObjects(list);
+   const trackExistsInList = (track = trackModel, list = [trackModel]) => {
+      allow.anInstanceOf(track, trackModel).anArrayOfInstances(list, trackModel);
       return list.some(item => item.id === track.id || tracksAreLikelyDuplicates(item, track));
    }
    
@@ -98,7 +97,7 @@ export const Recommend = () => {
       let seedBatch = [];
       const tracks = getRandomizedTracks();
       tracks.forEach((track, index) => {
-         seedBatch.push(track.track.id);
+         seedBatch.push(track.id);
          if (index > 0 && (((index + 1) % 5) === 0 || (index + 1) === tracks.length)) {
             seedBatches.push(seedBatch);
             seedBatch = [];
@@ -107,8 +106,8 @@ export const Recommend = () => {
       getRecommendations(seedBatches, []);
    }
    
-   const saveRecommendations = (playlistId = '', recommendations = []) => {
-      allow.aString(playlistId, is.not.empty).anArrayOfObjects(recommendations);
+   const saveRecommendations = (playlistId = '', recommendations = [trackModel]) => {
+      allow.aString(playlistId, is.not.empty).anArrayOfInstances(recommendations, trackModel);
       if (recommendations.length === 0)
          return;
       const uris = recommendations.map(recommendation => recommendation.uri);
@@ -120,7 +119,7 @@ export const Recommend = () => {
       setDisplayedRecommendations([]);
       const playlistId = event.target.value;
       if (playlistId !== '')
-         use.playlistsEndpoint.getTracks(playlistId);
+         use.playlistsEndpoint.getTracks(playlistId, 0, []);
       setLoadingModalIsOpen(playlistId !== '');
       setSelectedPlaylistId(playlistId);
       use.global.updatePlaylistTracksLoaded(false);

@@ -2,6 +2,7 @@ import { allow } from '../classes/allow';
 import { is } from '../objects/is';
 import { local } from '../classes/local';
 import { playlistModel } from '../objects/models/playlist.model';
+import { trackModel } from '../objects/models/track.model';
 import { the } from '../objects/the';
 import { use } from '../objects/use';
 import { useApi } from './use.api';
@@ -19,13 +20,13 @@ export const usePlaylistsEndpoint = () => {
       setPlaylists([...playlists, playlist]);
    }
    
-   const addTracks = (playlistId = '', uris = []) => {
+   const addTracks = (playlistId = '', uris = ['']) => {
       allow.aString(playlistId, is.not.empty).anArrayOfStrings(uris, is.not.empty);
       return api.call(the.method.post, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }
    
-   const getPlaylists = (offset = 0, allPlaylists = []) => {
-      allow.anInteger(offset, is.not.negative).anArrayOfObjects(allPlaylists);
+   const getPlaylists = (offset = 0, allPlaylists = [playlistModel]) => {
+      allow.anInteger(offset, is.not.negative).anArrayOfInstances(allPlaylists, playlistModel);
       if (offset === 0) {
          local.setItem('playlists', []);
          setPlaylists([]);
@@ -50,8 +51,8 @@ export const usePlaylistsEndpoint = () => {
          });
    }
    
-   const getTracks = (playlistId = '', offset = 0, allTracks = []) => {
-      allow.aString(playlistId, is.not.empty).anInteger(offset, is.not.negative).anArrayOfObjects(allTracks);
+   const getTracks = (playlistId = '', offset = 0, allTracks = [trackModel]) => {
+      allow.aString(playlistId, is.not.empty).anInteger(offset, is.not.negative).anArrayOfInstances(allTracks, trackModel);
       if (offset === 0) {
          setTracks([]);
          use.global.updatePlaylistTracksLoaded(false);
@@ -63,7 +64,7 @@ export const usePlaylistsEndpoint = () => {
       };
       api.call(the.method.get, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, parameters)
          .then(response => {
-            const aggregateTracks = [...allTracks, ...response.data.items];
+            const aggregateTracks = [...allTracks, ...response.data.items.map(item => item.track)];
             setTracks(aggregateTracks);
             if (response.data.next)
                setTimeout(() => getTracks(playlistId, offset + limit, aggregateTracks), use.global.consecutiveApiDelay);
@@ -72,7 +73,7 @@ export const usePlaylistsEndpoint = () => {
          });
    }
    
-   const replaceTracks = (playlistId = '', uris = []) => {
+   const replaceTracks = (playlistId = '', uris = ['']) => {
       allow.aString(playlistId, is.not.empty).anArrayOfStrings(uris, is.not.empty);
       return api.call(the.method.put, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {uris});
    }

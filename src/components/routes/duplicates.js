@@ -9,6 +9,7 @@ import { getTrackArtistNames } from '../../functions/get.track.artists';
 import { LoadingTracksModal } from '../loading.tracks.modal';
 import { PlaylistMenu } from '../playlist.menu';
 import { Row } from '../row';
+import { trackModel } from '../../objects/models/track.model';
 import { tracksAreLikelyDuplicates } from '../../functions/tracks.are.likely.duplicates';
 import { use } from '../../objects/use';
 
@@ -25,12 +26,12 @@ export const Duplicates = () => {
    const dedup = () => {
       let exactDuplicatesFound = [];
       let likelyDuplicatesFound = [];
-      const tracks = use.playlistsEndpoint.tracks.map(track => track);
+      const tracks = [...use.playlistsEndpoint.tracks];
       for (let i = 0; i < tracks.length; i++) {
          let originalTrackPushed = false;
          for (let j = i + 1; j < tracks.length; j++) {
-            const track1 = tracks[i].track;
-            const track2 = tracks[j].track;
+            const track1 = tracks[i];
+            const track2 = tracks[j];
             if (track1.id === track2.id) {
                if (!originalTrackPushed) {
                   exactDuplicatesFound.push(track1);
@@ -72,20 +73,19 @@ export const Duplicates = () => {
       );
    }
    
-   const populateExactDuplicates = (tracks = []) => {
-      allow.anArrayOfObjects(tracks);
+   const populateExactDuplicates = (tracks = [trackModel]) => {
+      allow.anArrayOfInstances(tracks, trackModel);
       if (tracks.length === 0) {
          setExactDuplicates(null);
          return;
       }
       const displayDuplicates = tracks.map((track, index) => {
-         const { album, duration_ms } = track;
          return (
             <tr key={track.uri + index}>
                <td style={tdStyle}>{track.name}</td>
                <td style={tdStyle}>{getTrackArtistNames(track)}</td>
-               <td style={tdStyle}>{album.name}</td>
-               <td style={tdStyle}>{getDurationFromMilliseconds(duration_ms)}</td>
+               <td style={tdStyle}>{track.album.name}</td>
+               <td style={tdStyle}>{getDurationFromMilliseconds(track.duration_ms)}</td>
             </tr>
          );
       });
@@ -107,7 +107,7 @@ export const Duplicates = () => {
       );
    }
    
-   const populateLikelyDuplicates = (pairs = []) => {
+   const populateLikelyDuplicates = (pairs = [[]]) => {
       allow.anArrayOfArrays(pairs);
       if (pairs.length === 0) {
          setLikelyDuplicates(null);
@@ -115,21 +115,19 @@ export const Duplicates = () => {
       }
       const duplicateRows = pairs.map(pair => {
          const [track1, track2] = pair;
-         const { album: track1Album, duration_ms: track1Duration } = track1;
-         const { album: track2Album, duration_ms: track2Duration } = track2;
          return (
             <React.Fragment key={track1.uri + track2.uri}>
                <tr>
                   <td style={tdStyle}>{track1.name}</td>
                   <td style={tdStyle}>{getTrackArtistNames(track1)}</td>
-                  <td style={tdStyle}>{track1Album.name}</td>
-                  <td style={tdStyle}>{getDurationFromMilliseconds(track1Duration)}</td>
+                  <td style={tdStyle}>{track1.album.name}</td>
+                  <td style={tdStyle}>{getDurationFromMilliseconds(track1.duration_ms)}</td>
                </tr>
                <tr>
                   <td style={tdStyle}>{track2.name}</td>
                   <td style={tdStyle}>{getTrackArtistNames(track2)}</td>
-                  <td style={tdStyle}>{track2Album.name}</td>
-                  <td style={tdStyle}>{getDurationFromMilliseconds(track2Duration)}</td>
+                  <td style={tdStyle}>{track2.album.name}</td>
+                  <td style={tdStyle}>{getDurationFromMilliseconds(track2.duration_ms)}</td>
                </tr>
             </React.Fragment>
          );
@@ -156,7 +154,7 @@ export const Duplicates = () => {
       allow.anInstanceOf(event, eventModel);
       const playlistId = event.target.value;
       if (playlistId !== '')
-         use.playlistsEndpoint.getTracks(playlistId);
+         use.playlistsEndpoint.getTracks(playlistId, 0, []);
       setLoadingModalIsOpen(playlistId !== '');
       setSelectedPlaylistId(playlistId);
       setExactDuplicates(null);

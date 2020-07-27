@@ -22,11 +22,10 @@ export const PlaylistMenu = props => {
    const getMenuItems = () => {
       let menuItems = [];
       const filteredPlaylists = use.playlistsEndpoint.playlists.filter(playlist => {
-         const { tracks } = playlist;
          return !playlist.name.toLowerCase().includes('shazam')
             && !playlist.name.toLowerCase().includes('rejected')
             && !playlist.name.toLowerCase().includes('spotify toolz')
-            && tracks.total > 1;
+            && playlist.tracks.total > 1;
       });
       filteredPlaylists.sort(comparePlaylists);
       filteredPlaylists.forEach(playlist => menuItems.push(

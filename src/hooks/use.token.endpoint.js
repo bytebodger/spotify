@@ -32,7 +32,7 @@ export const useTokenEndpoint = () => {
             if (refresh_token)
                use.global.updateRefreshToken(refresh_token);
             use.meEndpoint.getMe();
-            use.playlistsEndpoint.getPlaylists();
+            use.playlistsEndpoint.getPlaylists(0, []);
          });
    }
    

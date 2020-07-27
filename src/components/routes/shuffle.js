@@ -17,7 +17,7 @@ export const Shuffle = () => {
    const [loadingModalIsOpen, setLoadingModalIsOpen] = useState(false);
    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
    
-   const addTracks = (batches = []) => {
+   const addTracks = (batches = [[]]) => {
       allow.anArrayOfArrays(batches, is.not.empty);
       const batch = batches.shift();
       use.playlistsEndpoint.addTracks(selectedPlaylistId, batch);
@@ -39,7 +39,7 @@ export const Shuffle = () => {
       );
    }
    
-   const rebuildPlaylist = (batches = []) => {
+   const rebuildPlaylist = (batches = [[]]) => {
       allow.anArrayOfArrays(batches, is.not.empty);
       const firstBatch = batches.shift();
       use.playlistsEndpoint.replaceTracks(selectedPlaylistId, firstBatch)
@@ -53,15 +53,15 @@ export const Shuffle = () => {
       allow.anInstanceOf(event, eventModel);
       const playlistId = event.target.value;
       if (playlistId !== '')
-         use.playlistsEndpoint.getTracks(playlistId);
+         use.playlistsEndpoint.getTracks(playlistId, 0, []);
       setLoadingModalIsOpen(playlistId !== '');
       setSelectedPlaylistId(playlistId);
       setLastShuffleResult([]);
       use.global.updatePlaylistTracksLoaded(false);
    }
    
-   const updateTracks = (tracks = []) => {
-      allow.anArrayOfObjects(tracks, is.not.empty);
+   const updateTracks = (tracks = [trackModel]) => {
+      allow.anArrayOfInstances(tracks, trackModel, is.not.empty);
       let currentBatch = [];
       let uriBatches = [];
       let display = [];
