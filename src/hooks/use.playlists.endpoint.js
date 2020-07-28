@@ -60,6 +60,7 @@ export const usePlaylistsEndpoint = () => {
       const limit = 100;
       const parameters = {
          limit,
+         market: 'from_token',
          offset,
       };
       api.call(the.method.get, `https://api.spotify.com/v1/playlists/${playlistId}/tracks`, parameters)

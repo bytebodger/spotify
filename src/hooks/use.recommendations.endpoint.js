@@ -8,6 +8,7 @@ export const useRecommendationsEndpoint = () => {
    const getRecommendations = (seedTrackIds = ['']) => {
       allow.anArrayOfStrings(seedTrackIds);
       const parameters = {
+         market: 'from_token',
          seed_tracks: seedTrackIds.join(','),
       };
       return api.call(the.method.get, 'https://api.spotify.com/v1/recommendations', parameters);
