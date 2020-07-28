@@ -107,9 +107,10 @@ class Allow {
       return this;
    };
 
-   aNumber = (value = 0) => {
+   aNumber = (value = 0, minValue = Number.MIN_SAFE_INTEGER, maxValue = Number.MAX_SAFE_INTEGER) => {
       if (typeof value !== 'number')
          this.fail(value, 'is not a number');
+      this.checkRange(value, minValue, maxValue);
       return this;
    };
 
