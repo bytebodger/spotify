@@ -51,10 +51,6 @@ export const useApi = () => {
       if (!verifyAccessToken)
          return;
       const now = getCurrentTimeInSeconds();
-      if (now > use.global.accessTokenExpiresOn) {
-         window.location.href = '/home';
-         return;
-      }
       const remainingSeconds = use.global.accessTokenExpiresOn - now;
       if (remainingSeconds > (60 * 30))
          return;

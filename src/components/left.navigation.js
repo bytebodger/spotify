@@ -1,6 +1,6 @@
 import React from 'react';
-import { local } from '../classes/local';
 import { goToSpotifyAuthorization } from '../functions/go.to.spotify.authorization';
+import { logOut } from '../functions/log.out';
 import { use } from '../objects/use';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -84,11 +84,6 @@ export const LeftNavigation = () => {
             Log Into Spotify
          </div>
       );
-   }
-   
-   const logOut = () => {
-      local.clear();
-      window.location.href = '/home';
    }
    
    return (

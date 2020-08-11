@@ -4,6 +4,8 @@ import React  from 'react';
 import TransitionGroup from 'react-transition-group/TransitionGroup';
 import { About } from './routes/about';
 import { allow } from '../classes/allow';
+import { callFunctionRepeatedly } from '../functions/call.function.repeatedly';
+import { checkLoginStatus } from '../functions/check.login.status';
 import { Duplicates } from './routes/duplicates';
 import { Error } from './routes/error';
 import { Home } from './routes/home';
@@ -11,9 +13,12 @@ import { Recommend } from './routes/recommend';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { Shuffle } from './routes/shuffle';
 import { use } from '../objects/use';
+import { useConstructor } from '../functions/use.constructor';
 
 export const Body = () => {
    const location = useLocation();
+   
+   useConstructor(() => callFunctionRepeatedly(checkLoginStatus, 10));
    
    const renderComponent = (component = <></>) => {
       allow.aReactElement(component);
