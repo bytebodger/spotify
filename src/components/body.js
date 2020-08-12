@@ -14,7 +14,7 @@ import { Recommend } from './routes/recommend';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { Shuffle } from './routes/shuffle';
 import { use } from '../objects/use';
-import { useConstructor } from '../functions/use.constructor';
+import { useConstructor } from '../hooks/use.constructor';
 
 export const Body = () => {
    const location = useLocation();
