@@ -78,8 +78,7 @@ export const Recommend = () => {
          <Row style={{marginTop: 20}}>
             <Column xs={12}>
                <div style={{display: displayedRecommendations.length ? 'block' : 'none'}}>
-                  You should now have a playlist called <b>Spotify Toolz Recommendations</b>.  The playlist will have the tracks listed below.<br/><br/>
-                  [NOTE: It's possible that <i>some</i> of the tracks seen below will not be in your <b>Spotify Toolz Recommendations</b> playlist.  Certain tracks are only available in specific countries.]
+                  You should now have a playlist called <b>Spotify Toolz Recommendations</b>.  The playlist will have the tracks listed below.
                </div>
                <div style={{
                   fontSize: '0.8em',
