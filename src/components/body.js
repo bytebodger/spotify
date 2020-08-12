@@ -6,6 +6,7 @@ import { About } from './routes/about';
 import { allow } from '../classes/allow';
 import { callFunctionRepeatedly } from '../functions/call.function.repeatedly';
 import { checkLoginStatus } from '../functions/check.login.status';
+import { css } from '../objects/css';
 import { Duplicates } from './routes/duplicates';
 import { Error } from './routes/error';
 import { Home } from './routes/home';
@@ -25,7 +26,7 @@ export const Body = () => {
       return (
          <div style={{
             padding: 20,
-            position: 'absolute',
+            position: css.position.absolute,
             width: 'calc(100% - 50px)',
          }}>
             {component}
@@ -38,8 +39,8 @@ export const Body = () => {
    return (
       <main style={{
          height: '100%',
-         overflow: 'auto',
-         position: 'relative',
+         overflow: css.overflow.auto,
+         position: css.position.relative,
          width: '100%',
       }}>
          <TransitionGroup>

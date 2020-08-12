@@ -1,7 +1,8 @@
 import React from 'react';
-import { use } from '../objects/use';
+import { css } from '../objects/css';
 import { Column } from './column';
 import { Row } from './row';
+import { use } from '../objects/use';
 
 export const Header = () => {
    const getLoggedInAs = () => {
@@ -24,13 +25,13 @@ export const Header = () => {
                backgroundColor: 'darkslateblue',
                borderRadius: 10,
                color: '#eeeeee',
-               fontWeight: 'bold',
+               fontWeight: css.fontWeight.bold,
                height: 50,
                padding: 10,
             }}
          >
             Spotify Toolz
-            <div style={{float: 'right'}}>
+            <div style={{float: css.float.right}}>
                {getLoggedInAs()}
             </div>
          </Column>

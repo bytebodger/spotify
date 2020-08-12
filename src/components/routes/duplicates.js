@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
 import { allow } from '../../classes/allow';
+import { css } from '../../objects/css';
 import { Column } from '../column';
 import { eventModel } from '../../objects/models/event.model';
 import { getDurationFromMilliseconds } from '../../functions/get.duration.from.milliseconds';
@@ -21,7 +22,7 @@ export const Duplicates = () => {
    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
    
    const tdStyle = {padding: '3px 10px 3px 0px'};
-   const thStyle = {textAlign: 'left'};
+   const thStyle = {textAlign: css.textAlign.left};
    
    const dedup = () => {
       let exactDuplicatesFound = [];

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Body } from './body';
+import { css } from '../objects/css';
 import { LeftNavigation } from './left.navigation';
 
 export const FlexShell = () => {
@@ -8,7 +9,7 @@ export const FlexShell = () => {
          id={'row'}
          style={{
             backgroundColor: '#aaaaaa',
-            display: 'flex',
+            display: css.display.flex,
             flex: 2,
          }}
       >

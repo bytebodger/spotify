@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
 import { allow } from '../../classes/allow';
+import { css } from '../../objects/css';
 import { eventModel } from '../../objects/models/event.model';
 import { Column } from '../column';
 import { getRandomizedTracks } from '../../functions/get.randomized.tracks';
@@ -103,7 +104,7 @@ export const Shuffle = () => {
          </Row>
          <Row style={{marginTop: 20}}>
             <Column xs={12}>
-               <div style={{display: lastShuffleResult.length ? 'block' : 'none'}}>
+               <div style={{display: lastShuffleResult.length ? css.display.block : css.display.none}}>
                   All the tracks in your <b>{getPlaylistName()}</b> playlist have been shuffled into the order shown below.  If you view the <b>{getPlaylistName()}</b> playlist in your Spotify player, the tracks should be
                   displayed in this same order.  (Be sure to remove any of the column-sorts from the playlist.  Playlists can be sorted by Title, Artist, Album, Added On, or Duration.  If any of these sorts are in place,
                   you will not see the order listed below.)  With the playlist now shuffled, you can simply play the first track, and all subsequent tracks will play in the randomized order shown below.

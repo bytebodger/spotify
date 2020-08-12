@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
 import { allow } from '../../classes/allow';
+import { css } from '../../objects/css';
 import { eventModel } from '../../objects/models/event.model';
 import { Column } from '../column';
 import { getRandomizedTracks } from '../../functions/get.randomized.tracks';
@@ -77,7 +78,7 @@ export const Recommend = () => {
       return (
          <Row style={{marginTop: 20}}>
             <Column xs={12}>
-               <div style={{display: displayedRecommendations.length ? 'block' : 'none'}}>
+               <div style={{display: displayedRecommendations.length ? css.display.block : css.display.none}}>
                   You should now have a playlist called <b>Spotify Toolz Recommendations</b>.  The playlist will have the tracks listed below.
                </div>
                <div style={{

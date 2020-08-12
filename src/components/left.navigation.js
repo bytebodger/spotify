@@ -1,6 +1,7 @@
 import React from 'react';
 import { goToSpotifyAuthorization } from '../functions/go.to.spotify.authorization';
 import { logOut } from '../functions/log.out';
+import { css } from '../objects/css';
 import { use } from '../objects/use';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ export const LeftNavigation = () => {
    const buttonStyle = {
       border: '1px solid #777777',
       borderRadius: 10,
-      fontWeight: 'bold',
+      fontWeight: css.fontWeight.bold,
       marginBottom: 2,
       padding: 10,
    };
@@ -26,7 +27,7 @@ export const LeftNavigation = () => {
                   ...buttonStyle,
                   backgroundColor: 'white',
                   color: '#444444',
-                  cursor: 'pointer',
+                  cursor: css.cursor.pointer,
                }}
             >
                Log Out
@@ -37,7 +38,7 @@ export const LeftNavigation = () => {
                   ...buttonStyle,
                   backgroundColor: location.pathname === '/duplicates' ? '#FB7153' : 'white',
                   color: location.pathname === '/duplicates' ? 'white' : '#444444',
-                  cursor: location.pathname === '/duplicates' ? 'default' : 'pointer',
+                  cursor: location.pathname === '/duplicates' ? css.cursor.default : css.cursor.pointer,
                }}
             >
                Duplicates
@@ -48,7 +49,7 @@ export const LeftNavigation = () => {
                   ...buttonStyle,
                   backgroundColor: location.pathname === '/recommend' ? '#FB7153' : 'white',
                   color: location.pathname === '/recommend' ? 'white' : '#444444',
-                  cursor: location.pathname === '/recommend' ? 'default' : 'pointer',
+                  cursor: location.pathname === '/recommend' ? css.cursor.default : css.cursor.pointer,
                }}
             >
                Recommend
@@ -59,7 +60,7 @@ export const LeftNavigation = () => {
                   ...buttonStyle,
                   backgroundColor: location.pathname === '/shuffle' ? '#FB7153' : 'white',
                   color: location.pathname === '/shuffle' ? 'white' : '#444444',
-                  cursor: location.pathname === '/shuffle' ? 'default' : 'pointer',
+                  cursor: location.pathname === '/shuffle' ? css.cursor.default : css.cursor.pointer,
                }}
             >
                Shuffle
@@ -78,7 +79,7 @@ export const LeftNavigation = () => {
                ...buttonStyle,
                backgroundColor: 'white',
                color: '#444444',
-               cursor: 'pointer',
+               cursor: css.cursor.pointer,
             }}
          >
             Log Into Spotify
@@ -94,7 +95,7 @@ export const LeftNavigation = () => {
                ...buttonStyle,
                backgroundColor: location.pathname === '/home' ? '#FB7153' : 'white',
                color: location.pathname === '/home' ? 'white' : '#444444',
-               cursor: location.pathname === '/home' ? 'default' : 'pointer',
+               cursor: location.pathname === '/home' ? css.cursor.default : css.cursor.pointer,
             }}
          >
             Home
@@ -107,7 +108,7 @@ export const LeftNavigation = () => {
                ...buttonStyle,
                backgroundColor: location.pathname === '/about' ? '#FB7153' : 'white',
                color: location.pathname === '/about' ? 'white' : '#444444',
-               cursor: location.pathname === '/about' ? 'default' : 'pointer',
+               cursor: location.pathname === '/about' ? css.cursor.default : css.cursor.pointer,
             }}
          >
             About
