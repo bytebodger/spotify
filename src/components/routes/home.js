@@ -43,7 +43,6 @@ export const Home = () => {
             </Column>
          </Row>
          {getLoginButton()}
-         <br/><br/>adam.davis@hashverify.com
       </>
    );
 }
