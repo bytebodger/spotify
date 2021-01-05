@@ -1,6 +1,9 @@
 import React from 'react';
+import { useConstructor } from '../../hooks/use.constructor';
+import { logGooglePageHit } from '../../functions/log.google.page.hit';
 
 export const About = () => {
+   useConstructor(() => logGooglePageHit('About'));
    
    return (
       <>

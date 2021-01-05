@@ -14,11 +14,15 @@ import { Row } from '../row';
 import { trackModel } from '../../objects/models/track.model';
 import { tracksAreLikelyDuplicates } from '../../functions/tracks.are.likely.duplicates';
 import { use } from '../../objects/use';
+import { useConstructor } from '../../hooks/use.constructor';
+import { logGooglePageHit } from '../../functions/log.google.page.hit';
 
 export const Recommend = () => {
    const [loadingModalIsOpen, setLoadingModalIsOpen] = useState(false);
    const [displayedRecommendations, setDisplayedRecommendations] = useState([]);
    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
+   
+   useConstructor(() => logGooglePageHit('Recommend'));
    
    const checkRecommendationPlaylist = (recommendations = [trackModel]) => {
       allow.anArrayOfInstances(recommendations, trackModel);

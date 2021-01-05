@@ -4,8 +4,12 @@ import { goToSpotifyAuthorization } from '../../functions/go.to.spotify.authoriz
 import { use } from '../../objects/use';
 import { Column } from '../column';
 import { Row } from '../row';
+import { useConstructor } from '../../hooks/use.constructor';
+import { logGooglePageHit } from '../../functions/log.google.page.hit';
 
 export const Home = () => {
+   useConstructor(() => logGooglePageHit('Home'));
+   
    const getLoginButton = () => {
       if (use.global.isLoggedIn)
          return null;

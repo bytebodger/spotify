@@ -13,6 +13,8 @@ import { Row } from '../row';
 import { trackModel } from '../../objects/models/track.model';
 import { tracksAreLikelyDuplicates } from '../../functions/tracks.are.likely.duplicates';
 import { use } from '../../objects/use';
+import { useConstructor } from '../../hooks/use.constructor';
+import { logGooglePageHit } from '../../functions/log.google.page.hit';
 
 export const Duplicates = () => {
    const [exactDuplicates, setExactDuplicates] = useState(null);
@@ -23,6 +25,8 @@ export const Duplicates = () => {
    
    const tdStyle = {padding: '3px 10px 3px 0px'};
    const thStyle = {textAlign: css.textAlign.left};
+   
+   useConstructor(() => logGooglePageHit('Duplicates'));
    
    const dedup = () => {
       let exactDuplicatesFound = [];

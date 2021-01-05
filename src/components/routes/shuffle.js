@@ -12,11 +12,15 @@ import { PlaylistMenu } from '../playlist.menu';
 import { Row } from '../row';
 import { trackModel } from '../../objects/models/track.model';
 import { use } from '../../objects/use';
+import { useConstructor } from '../../hooks/use.constructor';
+import { logGooglePageHit } from '../../functions/log.google.page.hit';
 
 export const Shuffle = () => {
    const [lastShuffleResult, setLastShuffleResult] = useState([]);
    const [loadingModalIsOpen, setLoadingModalIsOpen] = useState(false);
    const [selectedPlaylistId, setSelectedPlaylistId] = useState('');
+   
+   useConstructor(() => logGooglePageHit('Shuffle'));
    
    const addTracks = (batches = [[]]) => {
       allow.anArrayOfArrays(batches, is.not.empty);
