@@ -28,6 +28,7 @@ export const LeftNavigation = () => {
                   backgroundColor: 'white',
                   color: '#444444',
                   cursor: css.cursor.pointer,
+                  fontSize: '0.9em',
                }}
             >
                Log Out
@@ -39,6 +40,7 @@ export const LeftNavigation = () => {
                   backgroundColor: location.pathname === '/duplicates' ? '#FB7153' : 'white',
                   color: location.pathname === '/duplicates' ? 'white' : '#444444',
                   cursor: location.pathname === '/duplicates' ? css.cursor.default : css.cursor.pointer,
+                  fontSize: '0.9em',
                }}
             >
                Duplicates
@@ -50,6 +52,7 @@ export const LeftNavigation = () => {
                   backgroundColor: location.pathname === '/recommend' ? '#FB7153' : 'white',
                   color: location.pathname === '/recommend' ? 'white' : '#444444',
                   cursor: location.pathname === '/recommend' ? css.cursor.default : css.cursor.pointer,
+                  fontSize: '0.9em',
                }}
             >
                Recommend
@@ -61,6 +64,7 @@ export const LeftNavigation = () => {
                   backgroundColor: location.pathname === '/shuffle' ? '#FB7153' : 'white',
                   color: location.pathname === '/shuffle' ? 'white' : '#444444',
                   cursor: location.pathname === '/shuffle' ? css.cursor.default : css.cursor.pointer,
+                  fontSize: '0.9em',
                }}
             >
                Shuffle
@@ -80,6 +84,7 @@ export const LeftNavigation = () => {
                backgroundColor: 'white',
                color: '#444444',
                cursor: css.cursor.pointer,
+               fontSize: '0.9em',
             }}
          >
             Log Into Spotify
@@ -96,6 +101,7 @@ export const LeftNavigation = () => {
                backgroundColor: location.pathname === '/home' ? '#FB7153' : 'white',
                color: location.pathname === '/home' ? 'white' : '#444444',
                cursor: location.pathname === '/home' ? css.cursor.default : css.cursor.pointer,
+               fontSize: '0.9em',
             }}
          >
             Home
@@ -109,6 +115,7 @@ export const LeftNavigation = () => {
                backgroundColor: location.pathname === '/about' ? '#FB7153' : 'white',
                color: location.pathname === '/about' ? 'white' : '#444444',
                cursor: location.pathname === '/about' ? css.cursor.default : css.cursor.pointer,
+               fontSize: '0.9em',
             }}
          >
             About

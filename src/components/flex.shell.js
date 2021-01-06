@@ -11,15 +11,16 @@ export const FlexShell = () => {
             backgroundColor: '#aaaaaa',
             display: css.display.flex,
             flex: 2,
+            minWidth: 600,
          }}
       >
          <div
             id={'navColumn'}
             style={{
                borderRadius: 10,
-               flex: '0 0 200px',
+               flex: '0 0 150px',
                marginBottom: 20,
-               marginLeft: 70,
+               marginLeft: 'calc(10%)',
                marginTop: 5,
             }}
          >
@@ -30,7 +31,7 @@ export const FlexShell = () => {
             style={{
                backgroundColor: '#aaaaaa',
                flex: '1 1',
-               padding: '5px 50px 20px 10px',
+               padding: '5px calc(10%) 20px 10px',
             }}
          >
             <div style={{

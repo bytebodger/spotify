@@ -40,7 +40,7 @@ export const Home = () => {
                   <li><b>De-dup'ing of Playlists:</b> Do you find yourself accidentally repeating tracks in a playlist?  This tool will highlight the exact duplicates, and the <i>probable</i> duplicates, that are
                   lurking in your playlists.</li>
                   <br/>
-                  <li><b>Advanced Music Discovery:</b> Spotify's "Recommended Songs" feature has a disturbing tendency to keep regurgiting the same, tired recommendations that you've already rejected.  This tool
+                  <li><b>Advanced Music Discovery:</b> Spotify's "Recommended Songs" feature has a disturbing tendency to keep regurgitating the same, tired recommendations that you've already rejected.  This tool
                   will provide a much richer set of recommended tracks.</li>
                </ol>
                

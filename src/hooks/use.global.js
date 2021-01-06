@@ -4,6 +4,7 @@ import { getSessionValues } from '../functions/get.session.values';
 import { is } from '../objects/is';
 import { local } from '../classes/local';
 import { useState } from 'react';
+import { translation } from '../objects/constants/translation';
 
 export const useGlobal = () => {
    const session = getSessionValues();
@@ -13,6 +14,7 @@ export const useGlobal = () => {
    const [codeVerifier, setCodeVerifier] = useState(session.codeVerifier);
    const [error, setError] = useState('');
    const [isLoggedIn, setIsLoggedIn] = useState(session.isLoggedIn);
+   const [language, setLanguage] = useState(local.getItem('language', 'English'));
    const [playlistTracksLoaded, setPlaylistTracksLoaded] = useState(false);
    const [refreshToken, setRefreshToken] = useState(session.refreshToken);
    
@@ -50,6 +52,12 @@ export const useGlobal = () => {
       setIsLoggedIn(loggedIn);
    }
    
+   const updateLanguage = (language = '') => {
+      allow.oneOf(language, Object.keys(translation).push('English'));
+      local.setItem('language', language);
+      setLanguage(language);
+   }
+   
    const updatePlaylistTracksLoaded = (loaded = false) => {
       allow.aBoolean(loaded);
       setPlaylistTracksLoaded(loaded);
@@ -70,6 +78,7 @@ export const useGlobal = () => {
       consecutiveApiDelay: 250,
       error,
       isLoggedIn,
+      language,
       playlistTracksLoaded,
       refreshToken,
       state: local.getItem('state', createGuid()),
@@ -79,6 +88,7 @@ export const useGlobal = () => {
       updateCodeVerifier,
       updateError,
       updateIsLoggedIn,
+      updateLanguage,
       updatePlaylistTracksLoaded,
       updateRefreshToken,
    };

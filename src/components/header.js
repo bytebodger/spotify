@@ -3,11 +3,12 @@ import { css } from '../objects/css';
 import { Column } from './column';
 import { Row } from './row';
 import { use } from '../objects/use';
+import { translate } from '../functions/translate';
 
 export const Header = () => {
    const getLoggedInAs = () => {
       if (!use.global.isLoggedIn)
-         return 'Logged Out';
+         return translate('Logged Out');
       const { display_name } = use.meEndpoint.me;
       return `Logged in as: ${display_name}`;
    }
@@ -15,8 +16,9 @@ export const Header = () => {
    return (
       <Row style={{
          backgroundColor: '#aaaaaa',
-         paddingLeft: 50,
-         paddingRight: 50,
+         minWidth: 600,
+         paddingLeft: 'calc(10%)',
+         paddingRight: 'calc(10%)',
          paddingTop: 10,
       }}>
          <Column
@@ -30,8 +32,12 @@ export const Header = () => {
                padding: 10,
             }}
          >
-            Spotify Toolz
-            <div style={{float: css.float.right}}>
+            <span style={{fontSize: '1.3em'}}>Spotify Toolz</span>
+            <div style={{
+               float: css.float.right,
+               fontSize: '0.9em',
+               paddingTop: 4,
+            }}>
                {getLoggedInAs()}
             </div>
          </Column>
