@@ -1,6 +1,7 @@
 import React from 'react';
 import { is } from '../objects/is';
 import { isAnObject } from '../functions/is.an.object';
+import { the } from '../objects/the';
 
 class Allow {
    throwOnFailure = true;
@@ -11,7 +12,7 @@ class Allow {
       return this;
    };
    
-   aFunction = (value = () => {}) => {
+   aFunction = (value = the.empty.function) => {
       if (typeof value !== 'function')
          this.fail(value, 'is not a function');
       return this;

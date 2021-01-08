@@ -4,6 +4,7 @@ import { logOut } from '../functions/log.out';
 import { css } from '../objects/css';
 import { use } from '../objects/use';
 import { useHistory, useLocation } from 'react-router-dom';
+import { the } from '../objects/the';
 
 export const LeftNavigation = () => {
    const history = useHistory();
@@ -34,7 +35,7 @@ export const LeftNavigation = () => {
                Log Out
             </div>
             <div
-               onClick={location.pathname === '/duplicates' ? () => {} : () => history.push('/duplicates')}
+               onClick={location.pathname === '/duplicates' ? the.empty.function : () => history.push('/duplicates')}
                style={{
                   ...buttonStyle,
                   backgroundColor: location.pathname === '/duplicates' ? '#FB7153' : 'white',
@@ -46,7 +47,7 @@ export const LeftNavigation = () => {
                Duplicates
             </div>
             <div
-               onClick={location.pathname === '/recommend' ? () => {} : () => history.push('/recommend')}
+               onClick={location.pathname === '/recommend' ? the.empty.function : () => history.push('/recommend')}
                style={{
                   ...buttonStyle,
                   backgroundColor: location.pathname === '/recommend' ? '#FB7153' : 'white',
@@ -58,7 +59,7 @@ export const LeftNavigation = () => {
                Recommend
             </div>
             <div
-               onClick={location.pathname === '/shuffle' ? () => {} : () => history.push('/shuffle')}
+               onClick={location.pathname === '/shuffle' ? the.empty.function : () => history.push('/shuffle')}
                style={{
                   ...buttonStyle,
                   backgroundColor: location.pathname === '/shuffle' ? '#FB7153' : 'white',
@@ -95,7 +96,7 @@ export const LeftNavigation = () => {
    return (
       <>
          <div
-            onClick={location.pathname === '/home' ? () => {} : () => history.push('/home')}
+            onClick={location.pathname === '/home' ? the.empty.function : () => history.push('/home')}
             style={{
                ...buttonStyle,
                backgroundColor: location.pathname === '/home' ? '#FB7153' : 'white',
@@ -109,7 +110,7 @@ export const LeftNavigation = () => {
          {getLoggedInLinks()}
          {getLoggedOutLinks()}
          <div
-            onClick={location.pathname === '/about' ? () => {} : () => history.push('/about')}
+            onClick={location.pathname === '/about' ? the.empty.function : () => history.push('/about')}
             style={{
                ...buttonStyle,
                backgroundColor: location.pathname === '/about' ? '#FB7153' : 'white',

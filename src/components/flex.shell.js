@@ -8,10 +8,11 @@ export const FlexShell = () => {
       <div
          id={'row'}
          style={{
-            backgroundColor: '#aaaaaa',
             display: css.display.flex,
             flex: 2,
             minWidth: 600,
+            paddingLeft: 'calc(15% - 50px)',
+            paddingRight: 'calc(15% - 50px)',
          }}
       >
          <div
@@ -20,7 +21,6 @@ export const FlexShell = () => {
                borderRadius: 10,
                flex: '0 0 150px',
                marginBottom: 20,
-               marginLeft: 'calc(10%)',
                marginTop: 5,
             }}
          >
@@ -29,15 +29,14 @@ export const FlexShell = () => {
          <div
             id={'bodyColumn'}
             style={{
-               backgroundColor: '#aaaaaa',
                flex: '1 1',
-               padding: '5px calc(10%) 20px 10px',
+               padding: '5px 0px 20px 10px',
             }}
          >
             <div style={{
+               backgroundColor: 'white',
                border: '1px solid #777777',
                borderRadius: 10,
-               backgroundColor: 'white',
                height: '100%',
             }}>
                <Body/>

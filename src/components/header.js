@@ -14,33 +14,37 @@ export const Header = () => {
    }
    
    return (
-      <Row style={{
-         backgroundColor: '#aaaaaa',
-         minWidth: 600,
-         paddingLeft: 'calc(10%)',
-         paddingRight: 'calc(10%)',
-         paddingTop: 10,
+      <div style={{
+         paddingLeft: 2,
+         paddingRight: 2,
       }}>
-         <Column
-            xs={12}
-            style={{
-               backgroundColor: 'darkslateblue',
-               borderRadius: 10,
-               color: '#eeeeee',
-               fontWeight: css.fontWeight.bold,
-               height: 50,
-               padding: 10,
-            }}
-         >
-            <span style={{fontSize: '1.3em'}}>Spotify Toolz</span>
-            <div style={{
-               float: css.float.right,
-               fontSize: '0.9em',
-               paddingTop: 4,
-            }}>
-               {getLoggedInAs()}
-            </div>
-         </Column>
-      </Row>
+         <Row style={{
+            minWidth: 600,
+            paddingLeft: 'calc(15% - 50px)',
+            paddingRight: 'calc(15% - 50px)',
+            paddingTop: 10,
+         }}>
+            <Column
+               xs={12}
+               style={{
+                  backgroundColor: 'darkslateblue',
+                  borderRadius: 10,
+                  color: '#eeeeee',
+                  fontWeight: css.fontWeight.bold,
+                  height: 50,
+                  padding: 10,
+               }}
+            >
+               <span style={{fontSize: '1.3em'}}>Spotify Toolz</span>
+               <div style={{
+                  float: css.float.right,
+                  fontSize: '0.9em',
+                  paddingTop: 4,
+               }}>
+                  {getLoggedInAs()}
+               </div>
+            </Column>
+         </Row>
+      </div>
    );
 }
