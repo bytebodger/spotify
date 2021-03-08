@@ -98,11 +98,14 @@ export const About = () => {
    
    return <>
       <h1 style={{marginTop: 0}}>All About Spotify Toolz</h1>
-      <p>
+      <p style={{textAlign: css.textAlign.center}}>
          <img
             alt={'Adam Nathaniel Davis'}
             src={me}
-            style={{width: '100%'}}
+            style={{
+               maxWidth: 700,
+               width: '100%',
+            }}
          />
       </p>
       <p>
