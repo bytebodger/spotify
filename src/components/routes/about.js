@@ -32,7 +32,7 @@ export const About = () => {
             headers: {},
             method: the.method.get,
             params: {},
-            url: 'http://api.npmjs.org/downloads/point/2019-01-01:2050-01-01/@toolz/' + npmPackage,
+            url: 'https://api.npmjs.org/downloads/point/2019-01-01:2050-01-01/@toolz/' + npmPackage,
          }).then(response => {
             if (response?.data?.downloads) {
                setNpmPackages(previousNpmPackages => {
