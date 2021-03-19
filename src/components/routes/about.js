@@ -5,6 +5,8 @@ import * as me from '../../images/adam.nathaniel.davis.jpg';
 import axios from 'axios';
 import { the } from '../../objects/the';
 import { css } from '../../objects/css';
+import { Row } from '../row';
+import { Column } from '../column';
 
 export const About = () => {
    const [npmPackages, setNpmPackages] = useState({
@@ -16,6 +18,7 @@ export const About = () => {
       'get-url-parameters': 0,
       'is-a-regular-object': 0,
       'is-a-regular-object-react': 0,
+      'is-local-storage-available': 0,
       'local-storage': 0,
       'looks-like-email': 0,
       'string-contains': 0,
@@ -71,28 +74,30 @@ export const About = () => {
    
    const getPackageTable = () => {
       return <>
-         <table style={{
-            width: '100%',
-         }}>
-            <thead>
-               <tr>
-                  <th style={{
-                     textAlign: css.textAlign.left,
-                     width: '90%',
-                  }}>Package
-                  </th>
-                  <th style={{
-                     minWidth: 50,
-                     textAlign: css.textAlign.right,
-                     width: '10%',
-                  }}>Downloads
-                  </th>
-               </tr>
-            </thead>
-            <tbody>
-               {getPackageRows()}
-            </tbody>
-         </table>
+         <Row>
+            <Column xl={6} lg={8} md={10} sm={12} xs={12}>
+               <table style={{width: '100%',}}>
+                  <thead>
+                     <tr>
+                        <th style={{
+                           textAlign: css.textAlign.left,
+                           width: '90%',
+                        }}>Package
+                        </th>
+                        <th style={{
+                           minWidth: 50,
+                           textAlign: css.textAlign.right,
+                           width: '10%',
+                        }}>Downloads
+                        </th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {getPackageRows()}
+                  </tbody>
+               </table>
+            </Column>
+         </Row>
       </>;
    };
    
