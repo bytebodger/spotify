@@ -136,13 +136,21 @@ export const About = () => {
          <a href={'https://dev.to/bytebodger'}>https://dev.to/bytebodger</a>
       </p>
       <p>
-         I do more than just write code (although I write a <i>lot</i> of code). I'm a poet, playwright, painter, and novelist. You can read all about my creative endeavors here:<br/>
+         I do more than just write code (although I write a <i>lot</i> of code). I'm a writer and a painter. You can read all about my creative endeavors here:<br/>
          <a href={'https://writing.voyage/'}>https://writing.voyage/</a>
       </p>
       <p>
-         I'm also working on my next novel - a fantasy tome written in an entirely unique lost-tech world. There are currently more than 400,000 words of pure worldbuilding (maps, articles, timelines, etc.) that do nothing but
+         I'm working on my next novel - a fantasy tome written in an entirely unique lost-tech world. There are currently more than 400,000 words of pure worldbuilding (maps, articles, timelines, etc.) that do nothing but
          set the scene for this project. To read all about this world, and to preview the first chapters of the upcoming novel, go here:<br/>
          <a href={'https://www.worldanvil.com/w/excilior'}>https://www.worldanvil.com/w/excilior</a>
+      </p>
+      <p>
+         Do you like theatre? Because, guess what?? I write <i>plays</i> as well! Check out my catalog here:<br/>
+         <a href={'https://newplayexchange.org/users/7276/adam-nathaniel-davis'}>https://newplayexchange.org/users/7276/adam-nathaniel-davis</a>
+      </p>
+      <p>
+         Wanna see what I'm painting? I've got a whole YouTube channel designed to document the entire act of creation. Check it out here:<br/>
+         <a href={'https://www.youtube.com/channel/UCHNDtVFC4WQTcp_awD9c1Ag'}>Blob Life</a>
       </p>
       <p>
          I've recently been building the following library of NPM packages. To-date, my software has been downloaded more than <b>{totalDownloads}</b> times.
