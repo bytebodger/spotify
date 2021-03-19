@@ -54,10 +54,13 @@ export const About = () => {
    
    const getPackageRows = () => {
       const rows = [];
-      Object.entries(npmPackages).forEach(entry => {
+      Object.entries(npmPackages).forEach((entry, index) => {
          const [npmPackage, downloads] = entry;
          rows.push(
-            <tr key={npmPackage}>
+            <tr
+               key={npmPackage}
+               style={{backgroundColor: index % 2 ? 'lightgray' : 'white'}}
+            >
                <td>
                   <a
                      href={'https://npmjs.com/package/@toolz/' + npmPackage}
