@@ -152,6 +152,7 @@ export const About = () => {
          Wanna see what I'm painting? I've got a whole YouTube channel designed to document the entire act of creation. Check it out here:<br/>
          <a href={'https://www.youtube.com/channel/UCHNDtVFC4WQTcp_awD9c1Ag'}>Blob Life</a>
       </p>
+      <p>(and Salima is awesome)</p>
       <p>
          I've recently been building the following library of NPM packages. To-date, my software has been downloaded more than <b>{totalDownloads}</b> times.
       </p>
