@@ -15,6 +15,7 @@ export const About = () => {
       'clone': 0,
       'color': 0,
       'create-random-id': 0,
+      'css3': 0,
       'get-cookies': 0,
       'get-url-parameters': 0,
       'is-a-regular-object': 0,
