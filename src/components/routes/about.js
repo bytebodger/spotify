@@ -27,6 +27,7 @@ export const About = () => {
       'session-storage-is-available': 0,
       'string-contains': 0,
       'use-constructor': 0,
+      'use-debouncer': 0,
       'use-synchronous-state': 0,
       'use-viewport': 0,
    });
