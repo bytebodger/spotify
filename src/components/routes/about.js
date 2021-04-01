@@ -23,6 +23,7 @@ export const About = () => {
       'local-storage': 0,
       'local-storage-is-available': 0,
       'looks-like-email': 0,
+      'material-ui': 0,
       'session-storage': 0,
       'session-storage-is-available': 0,
       'string-contains': 0,
