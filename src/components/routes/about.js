@@ -12,6 +12,7 @@ export const About = () => {
    const [npmPackages, setNpmPackages] = useState({
       'allow': 0,
       'allow-react': 0,
+      'capitalize': 0,
       'clone': 0,
       'color': 0,
       'create-random-id': 0,
