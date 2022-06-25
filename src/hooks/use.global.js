@@ -75,7 +75,7 @@ export const useGlobal = () => {
       clientId: '88008c88d1eb42b18856e03882160007',
       code,
       codeVerifier,
-      consecutiveApiDelay: 250,
+      consecutiveApiDelay: 1000,
       error,
       isLoggedIn,
       language,
