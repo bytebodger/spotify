@@ -49,11 +49,14 @@ export const Shuffle = () => {
    const rebuildPlaylist = (batches = [[]]) => {
       allow.anArrayOfArrays(batches, is.not.empty);
       const firstBatch = batches.shift();
-      use.playlistsEndpoint.replaceTracks(selectedPlaylistId, firstBatch)
-         .then(() => {
-            if (batches.length > 0)
-               setTimeout(() => addTracks(batches), use.global.consecutiveApiDelay);
-         });
+      const result = use.playlistsEndpoint.replaceTracks(selectedPlaylistId, firstBatch).then(() => {
+         if (result === false) {
+            batches.push(firstBatch);
+            rebuildPlaylist(batches);
+         }
+         if (batches.length > 0)
+            setTimeout(() => addTracks(batches), use.global.consecutiveApiDelay);
+      });
    }
 
    const updateSelectedPlaylist = (event = eventModel) => {
