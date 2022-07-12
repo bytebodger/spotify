@@ -53,6 +53,7 @@ export const Shuffle = () => {
          if (result === false) {
             batches.push(firstBatch);
             rebuildPlaylist(batches);
+            return;
          }
          if (batches.length > 0)
             setTimeout(() => addTracks(batches), use.global.consecutiveApiDelay);
