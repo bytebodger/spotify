@@ -25,7 +25,9 @@ export const Shuffle = () => {
    const addTracks = (batches = [[]]) => {
       allow.anArrayOfArrays(batches, is.not.empty);
       const batch = batches.shift();
-      use.playlistsEndpoint.addTracks(selectedPlaylistId, batch);
+      const result = use.playlistsEndpoint.addTracks(selectedPlaylistId, batch);
+      if (result === false)
+         batches.push(batch);
       if (batches.length > 0)
          setTimeout(() => addTracks(batches), use.global.consecutiveApiDelay);
    }

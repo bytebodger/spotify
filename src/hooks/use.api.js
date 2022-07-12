@@ -22,7 +22,10 @@ export const useApi = () => {
             method,
             params: data,
             url,
-         }).catch(error => console.error(error));
+         }).catch(error => {
+            console.error(error);
+            return false;
+         });
       } else if (method === the.method.post) {
          return axios({
             data: contentType === 'urlFormEncoded' ? qs.stringify(data) : data,
@@ -32,7 +35,10 @@ export const useApi = () => {
             },
             method,
             url,
-         }).catch(error => console.error(error));
+         }).catch(error => {
+            console.error(error);
+            return false;
+         });
       } else if (method === the.method.put) {
          return axios({
             data,
@@ -42,7 +48,10 @@ export const useApi = () => {
             },
             method,
             url,
-         }).catch(error => console.error(error));
+         }).catch(error => {
+            console.error(error);
+            return false;
+         });
       }
    };
    
