@@ -7,4 +7,7 @@ export const trackModel = {
    id: '',
    name: '',
    uri: '',
+   external_urls: {
+      spotify: '',
+   },
 }

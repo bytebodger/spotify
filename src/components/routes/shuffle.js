@@ -14,6 +14,7 @@ import { trackModel } from '../../objects/models/track.model';
 import { use } from '../../objects/use';
 import { useConstructor } from '../../hooks/use.constructor';
 import { logGooglePageHit } from '../../functions/log.google.page.hit';
+import spotifyIcon from '../../images/spotify-icon.svg';
 
 export const Shuffle = () => {
    const [lastShuffleResult, setLastShuffleResult] = useState([]);
@@ -41,7 +42,20 @@ export const Shuffle = () => {
       allow.anInstanceOf(track, trackModel).anInteger(index, is.not.negative);
       return (
          <div key={track.id + index}>
-            {index + 1}. {track.name} by {getTrackArtistNames(track)}
+            {index + 1}.{` `}
+            <img
+               alt={'Spotify Icon'}
+               height={16}
+               src={spotifyIcon}
+               width={16}
+            />{` `}
+            <a
+               href={track.external_urls.spotify}
+               rel={'noopener noreferrer'}
+               target={'_blank'}
+            >
+               {track.name} by {getTrackArtistNames(track)}
+            </a>
          </div>
       );
    }

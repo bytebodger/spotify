@@ -15,6 +15,7 @@ import { tracksAreLikelyDuplicates } from '../../functions/tracks.are.likely.dup
 import { use } from '../../objects/use';
 import { useConstructor } from '../../hooks/use.constructor';
 import { logGooglePageHit } from '../../functions/log.google.page.hit';
+import spotifyIcon from '../../images/spotify-icon.svg';
 
 export const Duplicates = () => {
    const [exactDuplicates, setExactDuplicates] = useState(null);
@@ -69,6 +70,7 @@ export const Duplicates = () => {
       return (
          <thead>
             <tr>
+               <th/>
                <th style={thStyle}>Title</th>
                <th style={thStyle}>Artist</th>
                <th style={thStyle}>Album</th>
@@ -87,10 +89,50 @@ export const Duplicates = () => {
       const displayDuplicates = tracks.map((track, index) => {
          return (
             <tr key={track.uri + index}>
-               <td style={tdStyle}>{track.name}</td>
-               <td style={tdStyle}>{getTrackArtistNames(track)}</td>
-               <td style={tdStyle}>{track.album.name}</td>
-               <td style={tdStyle}>{getDurationFromMilliseconds(track.duration_ms)}</td>
+                  <td>
+                     <img
+                        alt={'Spotify Icon'}
+                        height={21}
+                        src={spotifyIcon}
+                        width={21}
+                     />
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {track.name}
+                     </a>
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {getTrackArtistNames(track)}
+                     </a>
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {track.album.name}
+                     </a>
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {getDurationFromMilliseconds(track.duration_ms)}
+                     </a>
+                  </td>
             </tr>
          );
       });
@@ -123,16 +165,96 @@ export const Duplicates = () => {
          return (
             <React.Fragment key={track1.uri + track2.uri}>
                <tr>
-                  <td style={tdStyle}>{track1.name}</td>
-                  <td style={tdStyle}>{getTrackArtistNames(track1)}</td>
-                  <td style={tdStyle}>{track1.album.name}</td>
-                  <td style={tdStyle}>{getDurationFromMilliseconds(track1.duration_ms)}</td>
+                  <td>
+                     <img
+                        alt={'Spotify Icon'}
+                        height={21}
+                        src={spotifyIcon}
+                        width={21}
+                     />
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track1.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {track1.name}
+                     </a>
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track1.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {getTrackArtistNames(track1)}
+                     </a>
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track1.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {track1.album.name}
+                     </a>
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track1.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {getDurationFromMilliseconds(track1.duration_ms)}
+                     </a>
+                  </td>
                </tr>
                <tr>
-                  <td style={tdStyle}>{track2.name}</td>
-                  <td style={tdStyle}>{getTrackArtistNames(track2)}</td>
-                  <td style={tdStyle}>{track2.album.name}</td>
-                  <td style={tdStyle}>{getDurationFromMilliseconds(track2.duration_ms)}</td>
+                  <td>
+                     <img
+                        alt={'Spotify Icon'}
+                        height={21}
+                        src={spotifyIcon}
+                        width={21}
+                     />
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track2.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {track2.name}
+                     </a>
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track2.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {getTrackArtistNames(track2)}
+                     </a>
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track2.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {track2.album.name}
+                     </a>
+                  </td>
+                  <td style={tdStyle}>
+                     <a
+                        href={track2.external_urls.spotify}
+                        rel={'noopener noreferrer'}
+                        target={'_blank'}
+                     >
+                        {getDurationFromMilliseconds(track2.duration_ms)}
+                     </a>
+                  </td>
                </tr>
             </React.Fragment>
          );

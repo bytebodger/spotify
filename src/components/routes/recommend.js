@@ -16,6 +16,7 @@ import { tracksAreLikelyDuplicates } from '../../functions/tracks.are.likely.dup
 import { use } from '../../objects/use';
 import { useConstructor } from '../../hooks/use.constructor';
 import { logGooglePageHit } from '../../functions/log.google.page.hit';
+import spotifyIcon from '../../images/spotify-icon.svg';
 
 export const Recommend = () => {
    const [loadingModalIsOpen, setLoadingModalIsOpen] = useState(false);
@@ -75,7 +76,20 @@ export const Recommend = () => {
       displayedRecommendations.forEach((recommendation, index) => {
          numberedRecommendations.push(
             <div key={recommendation.id}>
-               {index + 1}. {recommendation.name} by {getTrackArtistNames(recommendation)}
+               {index + 1}.{` `}
+               <img
+                  alt={'Spotify Icon'}
+                  height={16}
+                  src={spotifyIcon}
+                  width={16}
+               />{` `}
+               <a
+                  href={recommendation.external_urls.spotify}
+                  rel={'noopener noreferrer'}
+                  target={'_blank'}
+               >
+                  {recommendation.name} by {getTrackArtistNames(recommendation)}
+               </a>
             </div>
          );
       });
