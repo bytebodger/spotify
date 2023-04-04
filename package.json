@@ -14,7 +14,7 @@
     "crypto-js": "^4.0.0",
     "material-ui": "^0.20.2",
     "prop-types": "^15.7.2",
-    "qs": "^6.9.6",
+    "qs": "^6.9.7",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-router": "^5.2.0",
