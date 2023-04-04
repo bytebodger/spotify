@@ -44,7 +44,7 @@ export const usePlaylistsEndpoint = () => {
             if (response.data.next)
                setTimeout(() => getPlaylists(offset + limit, aggregatePlaylists), use.global.consecutiveApiDelay);
             else {
-               const exists = aggregatePlaylists.some(playlist => playlist.name === 'Spotify Toolz Recommendations');
+               const exists = aggregatePlaylists.some(playlist => playlist.name === 'playlist.help Recommendations');
                setRecommendationPlaylistExists(exists);
                local.setItem('recommendationPlaylistExists', exists);
             }

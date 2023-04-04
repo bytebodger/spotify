@@ -27,7 +27,7 @@ export const Recommend = () => {
    const checkRecommendationPlaylist = (recommendations = [trackModel]) => {
       allow.anArrayOfInstances(recommendations, trackModel);
       if (!use.playlistsEndpoint.recommendationPlaylistExists)
-         use.usersEndpoint.createPlaylist('Spotify Toolz Recommendations')
+         use.usersEndpoint.createPlaylist('playlist.help Recommendations')
             .then(response => {
                use.playlistsEndpoint.addPlaylist(response.data);
                use.playlistsEndpoint.updateRecommendationPlaylistExists(true);
@@ -35,7 +35,7 @@ export const Recommend = () => {
             });
       else {
          const playlists = local.getItem('playlists', []);
-         const recommendationPlaylist = playlists.find(playlist => playlist.name === 'Spotify Toolz Recommendations');
+         const recommendationPlaylist = playlists.find(playlist => playlist.name === 'playlist.help Recommendations');
          saveRecommendations(recommendationPlaylist.id, recommendations);
       }
    }
@@ -83,7 +83,7 @@ export const Recommend = () => {
          <Row style={{marginTop: 20}}>
             <Column xs={12}>
                <div style={{display: displayedRecommendations.length ? css.display.block : css.display.none}}>
-                  You should now have a playlist called <b>Spotify Toolz Recommendations</b>.  The playlist will have the tracks listed below.
+                  You should now have a playlist called <b>playlist.help Recommendations</b>.  The playlist will have the tracks listed below.
                </div>
                <div style={{
                   fontSize: '0.8em',

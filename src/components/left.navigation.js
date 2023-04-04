@@ -88,7 +88,7 @@ export const LeftNavigation = () => {
                fontSize: '0.9em',
             }}
          >
-            Log Into Spotify
+            Login to Spotify
          </div>
       );
    }

@@ -35,7 +35,7 @@ export const Header = () => {
                   padding: 10,
                }}
             >
-               <span style={{fontSize: '1.3em'}}>Spotify Toolz</span>
+               <span style={{fontSize: '1.3em'}}>playlist.help</span>
                <div style={{
                   float: css.float.right,
                   fontSize: '0.9em',

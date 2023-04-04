@@ -26,12 +26,12 @@ export const Home = () => {
    
    return (
       <>
-         <h1 style={{marginTop: 0}}>Better Toolz For Spotify</h1>
+         <h1 style={{marginTop: 0}}>Better Tools for Spotify Playlists</h1>
          <Row>
             <Column xs={12} sm={10} md={8} lg={6} xl={4}>
                <p>
                   Spotify is an amazing service.  Its music player is... not always so amazing.  And Spotify's customer support is often... unsupportive.  Luckily, they publish an API that allows developers like me
-                  to make up for some of their shortcomings.  Spotify Toolz has some utilities that allow you to extend Spotify's (at times, frustrating) functionality.  Once you've logged in, you'll be able to use
+                  to make up for some of their shortcomings.  playlist.help has some utilities that allow you to extend Spotify's (at times, frustrating) functionality.  Once you've logged in, you'll be able to use
                   the following features:
                </p>
                <ol>

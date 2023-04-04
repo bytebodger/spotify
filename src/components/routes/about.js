@@ -21,7 +21,7 @@ export const About = () => {
             <h1 style={{
                marginTop: 0,
                textAlign: css.textAlign.center,
-            }}>All About Spotify Toolz</h1>
+            }}>All About playlist.help</h1>
             <p style={{textAlign: css.textAlign.center}}>
                <img
                   alt={'Adam Nathaniel Davis'}
@@ -33,7 +33,7 @@ export const About = () => {
                />
             </p>
             <p>
-               Spotify Toolz is an independent project by me - Adam Nathaniel Davis. I have no rights whatsoever to the <i>Spotify</i> name, brand, copyrights, or trademarks (obviously). The site is only named as such because all of
+               playlist.help is an independent project by me - Adam Nathaniel Davis. I have no rights whatsoever to the <i>Spotify</i> name, brand, copyrights, or trademarks (obviously). The site is only named as such because all of
                these tools are solely designed to work with Spotify and integrate specifically with Spotify's public API.
             </p>
             <p>

@@ -1,4 +1,4 @@
-# Spotify Toolz
+# Playlist.help
 Utilities to provide additional Spotify functionality.  Current tools include:
 
 1. A _true_ playlist-shuffle feature.  Spotify's existing "shuffle" doesn't use true randomness.  In fact, there are _many_ complaints about the aberrant results that can come from using their "shuffle" feature.  This tool will take all the tracks in a given playlist, thoroughly randomize them, and then save them back into the playlist.  Once the randomization is complete, go to your Spotify player, disable the native "shuffle" feature, ensure that your playlist isn't sorted by Title, Artist, Album, Added On, or Duration, and then simply play the tracks in "order", starting from the first track and allowing it to play through.  You can re-randomize a playlist as many times as you like.<br/>
@@ -9,4 +9,4 @@ Utilities to provide additional Spotify functionality.  Current tools include:
 
 To see the live code in action, go here:<br/>
 
-https://www.spotifytoolz.com
+https://www.playlist.help
